@@ -1,4 +1,4 @@
-#include "dynamique.hpp"
+#include "../headers/dynamique.hpp"
 
 vectorFloat Dynamique::getSpeed()
 {
