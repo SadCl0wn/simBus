@@ -1,12 +1,18 @@
 #ifndef __OBJECT_H__
 #define __OBJECT_H__
 
-class object{
+#include <tuple>
+
+using vectorInt = std::tuple<int,int>;
+
+class Object{
     public:
-        int *getCoor();
-        bool setCoor(int coordonnees[2]);
+        Object(int x=0,int y=0):coord_(x,y){};
+        vectorInt getCoor();
+        void setCoor(int coordonnees[2]);
+        void setCoor(vectorInt coord);
     private:
-        int coordonnees[2];
-}
+        vectorInt coord_;
+};
 
 #endif
