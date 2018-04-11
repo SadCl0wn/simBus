@@ -3,16 +3,20 @@
 
 #include <tuple>
 
-using vectorInt = std::tuple<int,int>;
+template <typename T>
+struct vec2{
+    T x;
+    T y;
+}
 
 class Object{
     public:
         Object(int x=0,int y=0):coord_(x,y){};
-        vectorInt getCoor();
+        vec2<int> getCoor();
         void setCoor(int coordonnees[2]);
-        void setCoor(vectorInt coord);
+        void setCoor(vec2<int> coord);
     private:
-        vectorInt coord_;
+        vec2<int> coord_;
 };
 
 #endif
