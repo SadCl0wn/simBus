@@ -1,5 +1,9 @@
 #include <../headers/batiment.hpp>
 
+Batiment::~Batiment(){
+
+}
+
 vec2<unsigned> Batiment::getStats(){
     vec2<unsigned> stats;
     stats.x = nbPersonneParJour;

@@ -8,8 +8,8 @@ class Batiment:public Object{
     public:
         Batiment(int x=0,int y=0): Object(x,y){};
         ~Batiment(); //COMPLETER *Batiment delink
+        
         /**
-        * 
         * @returns vect2.x = nbPersonneParJour
         * vect2.y = nbPersonneMax
         */

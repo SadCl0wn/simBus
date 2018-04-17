@@ -1,5 +1,10 @@
 #include "../headers/personne.hpp"
 
+Personne::~Personne(){
+    for(auto o : objectifs)
+        o->popPersonne(this);
+}
+
 bool Personne::popObjectifs(Batiment *objectif)
 {
     for(unsigned x = 0;x<objectifs.size();x++)
