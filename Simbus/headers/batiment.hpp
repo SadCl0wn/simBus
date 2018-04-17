@@ -13,14 +13,14 @@ class Batiment:public Object{
         * @returns vect2.x = nbPersonneParJour
         * vect2.y = nbPersonneMax
         */
-        vec2<uint> getStats();
+        vec2<unsigned> getStats();
         bool popPersonne(Personne *personne);
         void pushPersonnes(Personne *personne);
-        std::vector<*Personne> getPersonnes();
+        std::vector<Personne *> getPersonnes();
     private:
-        std::vector<*Personne> personnes;
-        uint nbPersonneParJour;
-        uint nbPersonneMax;
+        std::vector<Personne *> personnes;
+        unsigned nbPersonneParJour;
+        unsigned nbPersonneMax;
 };
 
 #endif

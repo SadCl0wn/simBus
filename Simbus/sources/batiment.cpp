@@ -1,22 +1,30 @@
-#include <batiment.hpp>
+#include <../headers/batiment.hpp>
 
-vec2<uint> Batiment::getStats(){
-    vec2<uint> stats;
-    stats.x = this.nbPersonneParJour;
-    stats.y = this.nbPersonneMax;
+vec2<unsigned> Batiment::getStats(){
+    vec2<unsigned> stats;
+    stats.x = nbPersonneParJour;
+    stats.y = nbPersonneMax;
     return stats;
 }
 
-bool popPersonne(Personne *personne)
+bool Batiment::popPersonne(Personne *personne)
 {
-    for(unsigned x;x<personnes.;x++)
+    for(unsigned x = 0;x<personnes.size();x++)
     {
-        if(x = personne)
+        if(personnes[x] == personne)
         {
-            
+            personnes.erase(personnes.begin()+x);
+            return true;
         }
     }
     return false;
 }
-void pushPersonnes(Personne *personne)
-std::vector<*Personne> getPersonnes()
+void Batiment::pushPersonnes(Personne *personne)
+{
+    personnes.push_back(personne);
+}
+
+std::vector<Personne*> Batiment::getPersonnes()
+{
+    return personnes;
+}
