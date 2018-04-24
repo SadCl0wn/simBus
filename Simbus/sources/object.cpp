@@ -1,11 +1,5 @@
 #include "../headers/object.hpp"
 
-Object(int x,int y)
-{
-    coord_.x=x;
-    coord_.y=y;
-}
-
 vectorInt Object::getCoor(){
     return coord_;
 }
