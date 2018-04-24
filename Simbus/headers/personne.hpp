@@ -2,7 +2,8 @@
 #define __PERSONNE_H__
 
 #include "dynamique.hpp"
-#include "batiment.hpp"
+
+class Batiment;
 
 class  Personne:public Dynamique{
     public:
