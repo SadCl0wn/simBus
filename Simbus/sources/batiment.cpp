@@ -4,9 +4,7 @@ Batiment::~Batiment(){
 }
 
 vec2<unsigned> Batiment::getStats(){
-    vec2<unsigned> stats;
-    stats.x = nbPersonneParJour;
-    stats.y = nbPersonneMax;
+    vec2<unsigned> stats(nbPersonneParJour,nbPersonneMax);
     return stats;
 }
 

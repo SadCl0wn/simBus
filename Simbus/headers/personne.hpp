@@ -15,7 +15,6 @@ class  Personne:public Dynamique{
     private:
         std::vector<uint32_t> heureDeplacement;
         std::vector<Batiment *> objectifs;
-
 };
 
 #endif
