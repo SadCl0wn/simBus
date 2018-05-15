@@ -1,5 +1,5 @@
-#ifndef __PERSONNE_H__
-#define __PERSONNE_H__
+#ifndef __ARRET_H__
+#define __ARRET_H__
 
 #include "batiment.hpp"
 #include "transportPublique.hpp"
