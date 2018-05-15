@@ -6,9 +6,9 @@
 
 class Dynamique:public Object{
     public:
-        virtual Dynamique(int x=0,int y=0,int speed_x=0,int speed_y=0): Object(x,y),speed_(speed_x,speed_y){};
+        Dynamique(int x=0,int y=0,int speed_x=0,int speed_y=0): Object(x,y),speed_(speed_x,speed_y){};
         vec2<float> getSpeed();
-        void setSpeed(int coordonnees[2]);
+        void setSpeed(int coordonnees[2]); 
         void setSpeed(vec2<float> coord);
     private:
         vec2<float> speed_;

@@ -5,9 +5,10 @@
 
 template <typename T>
 struct vec2{
+    vec2(T x,T y):x(x),y(y){};
     T x;
     T y;
-}
+};
 
 class Object{
     public:

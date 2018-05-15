@@ -4,6 +4,8 @@
 #include "object.hpp"
 #include "personne.hpp"
 
+class Personne;
+
 class Batiment:public Object{
     public:
         Batiment(int x=0,int y=0): Object(x,y){};

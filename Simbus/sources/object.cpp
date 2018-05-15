@@ -1,6 +1,5 @@
 #include "../headers/object.hpp"
 
-
 vectorInt Object::getCoor(){
     return coord_;
 }
