@@ -1,12 +1,12 @@
 #include "../headers/object.hpp"
 
-vectorInt Object::getCoor(){
+vec2<int> Object::getCoor(){
     return coord_;
 }
 
 void Object::setCoor(int coordonnees[2]){
-    coord_ = std::make_tuple(coordonnees[0],coordonnees[1]);
+    coord_ = vec2<int>(coordonnees[0],coordonnees[1]);
 }
-void Object::setCoor(vectorInt coord){
+void Object::setCoor(vec2<int> coord){
         coord_ = coord;
 }

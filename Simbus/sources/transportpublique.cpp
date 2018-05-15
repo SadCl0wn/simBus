@@ -1,8 +1,8 @@
-#include "../headers/Transportpublique.hpp"
+#include "../headers/transportPublique.hpp"
 
 Transportpublique::~Transportpublique(){
     for(auto a : arrets)
-        a->popTransportpublique(this);
+        a->popLignes(this);
 }
 
 bool Transportpublique::popArrets(Arret *arret)

@@ -8,8 +8,8 @@ class Dynamique:public Object{
     public:
         Dynamique(int x=0,int y=0,int speed_x=0,int speed_y=0): Object(x,y),speed_(speed_x,speed_y){};
         vec2<float> getSpeed();
-        void setSpeed(int coordonnees[2]); 
-        void setSpeed(vec2<float> coord);
+        void setSpeed(float speed[2]); 
+        void setSpeed(vec2<float> speed);
     private:
         vec2<float> speed_;
         std::vector<vec2<int>> parcours;
