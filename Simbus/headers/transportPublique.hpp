@@ -9,8 +9,8 @@ class Arret;
 
 class  Transportpublique:public Dynamique{
     public:
-        Transportpublique(int x=0,int y=0,int speed_x=0,int speed_y=0,int nbpmax=0,int nbpmoy=0,int cappacity=40):Dynamique(x,y,speed_x,speed_y){};
-        ~Transportpublique();                        //COMPLETER *Batiment delink
+        Transportpublique(float x=0,float y=0,float speed_x=0,float speed_y=0,int nbpmax=0,int nbpmoy=0,int cappacity=40):Dynamique(x,y,speed_x,speed_y){};
+        ~Transportpublique();
         bool popArrets(Arret *arret);
         void pushArrets(Arret *arret);
         std::vector<Arret *> getArrets();
