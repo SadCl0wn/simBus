@@ -1,6 +1,11 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import Parametres 1.0
+import QtQuick 2.0
+import QtQuick.Window 2.0
+import QtLocation 5.6
+import QtPositioning 5.6
+import QtLocation 5.3
 
 ApplicationWindow {
     id: window
@@ -30,10 +35,10 @@ ApplicationWindow {
 
     Page {
         id: base
-        x: 0
+        x: 15
         y: 0
-        width: 1900
-        height: 1080
+        width: 1876
+        height: 1052
         visible: false
         title: "simBus"
 
@@ -330,6 +335,49 @@ ApplicationWindow {
 
 
 
+        }
+
+        Rectangle {
+            id: map
+            x: 6
+            y: 200
+            width: 1505
+            height: 845
+            color: "#ffffff"
+
+        Plugin {
+               id: mapPlugin
+               name: "osm" // "mapboxgl", "esri", ...
+               // specify plugin parameters if necessary
+               // PluginParameter {
+               //     name:
+               //     value:
+               // }
+        }
+
+        Map {
+            anchors.rightMargin: 4
+            anchors.bottomMargin: 4
+            anchors.topMargin: 4
+            anchors.leftMargin: 4
+            anchors.fill: parent
+            plugin: mapPlugin
+               center: QtPositioning.coordinate( 48.390394,-4.486076) // Oslo
+               zoomLevel: 14
+           }
+        /*Plugin {
+            id: aPlugin
+        }
+
+        GeocodeModel {
+            id: geocodeModel
+            plugin: aPlugin
+            autoUpdate: false
+        }
+        {
+            geocodeModel.query = "24 rue Coat ar Guéven, 29200 BREST"
+            geocodeModel.update()
+        }*/
         }
 
 
