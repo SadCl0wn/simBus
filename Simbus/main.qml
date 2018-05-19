@@ -50,7 +50,8 @@ Window {
                     // console.log(jsonObject.toString());
                     // console.log(JSON.parse('{"data": "test"}').data);
                     // console.log(parseData(xhr.responseText));
-                    console.log(parseData(a));
+                    //console.log(parseData(a));
+                    parser = new DOMParser();
                 }
             }
             var url = 'http://api.openstreetmap.org/api/0.6/map?bbox=-4.6388600,48.3521900,-4.6363600,48.3531700';

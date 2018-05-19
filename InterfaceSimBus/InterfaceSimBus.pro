@@ -1,4 +1,4 @@
-QT += quick
+QT += quick positioning location
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -29,4 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    parametres.h
+    parametres.h \
+    markermodel.h
