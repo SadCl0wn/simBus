@@ -23,5 +23,6 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp"
-    }
+    },
+    "C_Cpp.dimInactiveRegions": true
 }

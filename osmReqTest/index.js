@@ -1,4 +1,4 @@
-function parseData(data) {
+function parseDataOld(data) {
     let begining = data.indexOf('<osm');
     let ending = data.indexOf('</osm>');
     data = data.slice(begining, ending + 6);
@@ -10,19 +10,22 @@ function parseData(data) {
     let i = 0;
     while (i < data.length) {
         if (data[i] === '<') {
-            isInsideTag = true;
-            let size = data.indexOf(' ', i);
-            res += '{"' + data.slice(i + 1, size) + '":[';
-            i = size;
+            if (data[i + 1] === '/') {
+            } else {
+                isInsideTag = true;
+                let size = data.indexOf(' ', i);
+                res += '{"' + data.slice(i + 1, size) + '":[';
+                i = size;
+            }
         } else if (data[i] === '>') {
             if (data[i - 1] === '/') {
-                res += ']';
+                res += '}';
             } else {
                 res += 'child:[';
             }
             isInsideTag = false;
         } else if (isInsideTag) {
-            if (data[i] != ' ') {
+            if (data[i] !== ' ' && data[i] !== '/') {
                 let size = data.indexOf('=', i);
                 res += '"' + data.slice(i, size) + '"';
                 i = size;
@@ -36,6 +39,84 @@ function parseData(data) {
         i++;
     }
     return res;
+}
+
+function parseData(data) {
+    let begining = data.indexOf('<osm');
+    let ending = data.indexOf('</osm>');
+    data = data.slice(begining, ending + 6);
+
+    let partRes = [];
+
+    let i = 0;
+    while (i < data.length) {
+        if (data[i] === '<') {
+            if (data[i + 1] === '/') {
+                let sizeName = data.indexOf('>', i);
+                partRes.push({
+                    name: data.slice(i + 2, sizeName),
+                    hasChilds: true,
+                    isClosingTag: true,
+                    tagSize: sizeName - i,
+                    tagPos: i + 2
+                });
+                i = sizeName;
+            } else {
+                let sizeName = data.indexOf(' ', i);
+                let sizeTag = data.indexOf('>', i);
+                if (data[sizeTag - 1] === '/') {
+                    partRes.push({
+                        name: data.slice(i + 1, sizeName),
+                        hasChilds: false,
+                        isClosingTag: false,
+                        tagSize: sizeTag - i,
+                        tagPos: i + 1
+                    });
+                } else {
+                    partRes.push({
+                        name: data.slice(i + 1, sizeName),
+                        hasChilds: true,
+                        isClosingTag: false,
+                        tagSize: sizeTag - i,
+                        tagPos: i + 1
+                    });
+                }
+
+                i = sizeTag;
+            }
+        }
+        i++;
+    }
+    let path = [];
+    let _res = [];
+
+    var res = () => {
+        let tmp = _res;
+        let k = 0;
+        while (k < path.length) {
+            tmp = tmp[path[k]];
+            k++;
+        }
+
+        return tmp;
+    };
+
+    i = 0;
+    while (i < partRes.length) {
+        if (!partRes[i].isClosingTag) {
+            res()[partRes[i].name] = {};
+            if (partRes[i].hasChilds) {
+                res()['childs'] = [];
+                path.push(partRes[i].name);
+            }
+        } else path.pop();
+
+        i++;
+    }
+
+    i = 0;
+
+    return _res;
 }
 
 var a = `<?xml version="1.0" encoding="UTF-8"?>

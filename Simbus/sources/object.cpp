@@ -1,12 +1,12 @@
 #include "../headers/object.hpp"
 
-vec2<int> Object::getCoor(){
+vec2<float> Object::getCoor(){
     return coord_;
 }
 
-void Object::setCoor(int coordonnees[2]){
-    coord_ = vec2<int>(coordonnees[0],coordonnees[1]);
+void Object::setCoor(float coordonnees[2]){
+    coord_ = vec2<float>(coordonnees[0],coordonnees[1]);
 }
-void Object::setCoor(vec2<int> coord){
+void Object::setCoor(vec2<float> coord){
         coord_ = coord;
 }

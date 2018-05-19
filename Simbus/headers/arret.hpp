@@ -1,5 +1,5 @@
-#ifndef __PERSONNE_H__
-#define __PERSONNE_H__
+#ifndef __ARRET_H__
+#define __ARRET_H__
 
 #include "batiment.hpp"
 #include "transportPublique.hpp"
@@ -8,13 +8,13 @@ class  Transportpublique;
 
 class  Arret:public Batiment{
     public:
-        Arret(std::vector<time_t> h,int x=0,int y=0, int tmp=0, time_t tma=0, int nbpj=0,int nbpm=0):Batiment(x,y){};
-        ~Arret();                        //COMPLETER *Batiment delink
+        Arret(std::vector<size_t> h,float x=0,float y=0, int tmp=0, size_t tma=0, int nbpj=0,int nbpm=0):Batiment(x,y){};
+        ~Arret();
         bool popLignes(Transportpublique *transportpublique);
         void pushLignes(Transportpublique *transportpublique);
         std::vector<Transportpublique *> getLignes();
     private:
-        std::vector<uint32_t> horaires;
+        std::vector<size_t> horaires;
         std::vector<Transportpublique *> lignes;
 
 };
