@@ -1,6 +1,9 @@
 #include "../headers/batiment.hpp"
 
-Batiment::~Batiment(){
+Batiment::~Batiment()
+{
+    for(auto o : personnes)
+        o->popObjectifs(this);
 }
 
 vec2<unsigned> Batiment::getStats(){

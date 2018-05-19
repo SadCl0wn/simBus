@@ -1,14 +1,14 @@
 #include "../headers/dynamique.hpp"
 
-vectorFloat Dynamique::getSpeed()
+vec2<float> Dynamique::getSpeed()
 {
     return speed_;
 }
-void Dynamique::setSpeed(int coordonnees[2])
+void Dynamique::setSpeed(float speed[2])
 {
-    speed_ = std::make_tuple(coordonnees[0],coordonnees[1]);
+    speed_ = vec2<float>(speed[0],speed[1]);
 }
-void Dynamique::setSpeed(vectorFloat coord)
+void Dynamique::setSpeed(vec2<float> speed)
 {
-    speed_ = coord;
+    speed_ = speed;
 }

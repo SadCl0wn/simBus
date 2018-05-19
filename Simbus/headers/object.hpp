@@ -1,7 +1,7 @@
 #ifndef __OBJECT_H__
 #define __OBJECT_H__
 
-#include <tuple>
+//#include <tuple>
 
 template <typename T>
 struct vec2{
@@ -12,12 +12,12 @@ struct vec2{
 
 class Object{
     public:
-        Object(int x=0,int y=0):coord_(x,y){};
-        vec2<int> getCoor();
-        void setCoor(int coordonnees[2]);
-        void setCoor(vec2<int> coord);
+        Object(float x=0,float y=0):coord_(x,y){};
+        vec2<float> getCoor();
+        void setCoor(float coordonnees[2]);
+        void setCoor(vec2<float> coord);
     private:
-        vec2<int> coord_;
+        vec2<float> coord_;
 };
 
 #endif
