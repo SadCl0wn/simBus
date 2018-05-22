@@ -7,6 +7,7 @@ import QtLocation 5.6
 import QtPositioning 5.6
 import QtLocation 5.3
 
+
 ApplicationWindow {
     id: window
     visible: true
@@ -26,7 +27,7 @@ ApplicationWindow {
     Image {
         id: image
         x: 0
-        y: 0
+        y: 9
         width: 330
         height: 381
         visible: true
@@ -61,7 +62,7 @@ ApplicationWindow {
             id: simulation
             x: 1517
             y: 300
-            width: 368
+            width: 391
             height: 745
             color: "#ffffff"
             border.color: "#000000"
@@ -72,8 +73,8 @@ ApplicationWindow {
                 id: repartition
                 x: 0
                 y: 395
-                width: 368
-                height: 351
+                width: 391
+                height: 357
                 color: "#ffffff"
                 border.width: 4
                 border.color: "#000000"
@@ -129,7 +130,7 @@ ApplicationWindow {
             id: rectangle
             x: 1517
             y: 190
-            width: 368
+            width: 391
             height: 114
             color: "#ffffff"
             border.width: 4
@@ -149,9 +150,9 @@ ApplicationWindow {
 
         Rectangle {
             id: parametres
-            x: 0
+            x: -15
             y: 0
-            width: 1885
+            width: 1923
             height: 194
             color: "#ffffff"
             visible: true
@@ -177,6 +178,8 @@ ApplicationWindow {
                     param.heure=heure.value
                     param.minute=minute.value
                     param.save()
+                    geocodeModel.query = "2 rue Frézier, Brest, France"
+                    geocodeModel.update()
 
 
                 }
@@ -291,7 +294,8 @@ ApplicationWindow {
                 text: qsTr("ajouter arret")
                 font.pointSize: 14
                 onClicked: {
-                    param.ajoutArret("55,66");
+                    //param.ajoutArret("55,66");
+                    markermodel.setAddAction(true)
                 }
             }
 
@@ -339,10 +343,10 @@ ApplicationWindow {
 
         Rectangle {
             id: map
-            x: 6
+            x: 0
             y: 200
-            width: 1505
-            height: 845
+            width: 1511
+            height: 852
             color: "#ffffff"
 
         Plugin {
@@ -356,41 +360,49 @@ ApplicationWindow {
         }
 
         Map {
-            anchors.rightMargin: 4
-            anchors.bottomMargin: 4
-            anchors.topMargin: 4
-            anchors.leftMargin: 4
+            id:mapview
+            anchors.rightMargin: -5
+            anchors.bottomMargin: -4
+            anchors.topMargin: -6
+            anchors.leftMargin: -17
             anchors.fill: parent
             plugin: mapPlugin
-               center: QtPositioning.coordinate( 48.390394,-4.486076) // Oslo
-               zoomLevel: 14
+            center: QtPositioning.coordinate( 48.390394,-4.486076) // Oslo
+            zoomLevel: 14
+             MapItemView{
+                 model:markermodel
+                 delegate: mapcomponent
+             }
+
            }
-        /*Plugin {
-            id: aPlugin
-        }
+        Component {
+                id: mapcomponent
+                MapQuickItem {
+                    id: marker
+                    anchorPoint.x: imagemarker.width/4
+                    anchorPoint.y: imagemarker.height
+                    coordinate: position
 
-        GeocodeModel {
-            id: geocodeModel
-            plugin: aPlugin
-            autoUpdate: false
-        }
-        {
-            geocodeModel.query = "24 rue Coat ar Guéven, 29200 BREST"
-            geocodeModel.update()
-        }*/
-        }
+                    sourceItem: Image {
+                        id: imagemarker
+                        source: "http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_red.png"
+                    }
+                }
+            }
 
+            MouseArea {
+                anchors.fill: parent
 
-
-
-
-
-
-
-
-
-
+                onPressAndHold:  {
+                    var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
+                    //console.log(coordinate.latitude+ "-" + coordinate.longitude)
+                   markermodel.addMarker(coordinate)
+                    param.ajoutArret(coordinate.latitude+ "-" + coordinate.longitude)
+                }
+            }
     }
+
+        }
 
 
 }

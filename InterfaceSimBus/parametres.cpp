@@ -68,6 +68,9 @@ QString Parametres::textvalue(int value){
         // stream <<recupheure() << endl;// transfert heure via le flux
         //stream <<recupminute() << endl;// transfert minute via le flux
          stream <<"horaire ="<<textvalue(recupheure()) << ":"<<textvalue(recupminute()) << endl;
+         for (QString arret: coordonnees){
+             stream<<arret<<endl;
+         }
 
 
      }
