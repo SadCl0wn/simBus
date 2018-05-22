@@ -14,31 +14,17 @@ Window {
         height: 50
         text: "API osm test"
         onClicked: {
-
             function parseData(data){
-                let begining = data.indexOf('<osm>');
-                let ending = data.indexOf('</osm>');
-                data = data.slice(begining, ending);
-
-                let res = '';
-
-                let isInsideTag = false;
-
-                let i = 0;
-                while(i < data.length){
-                    if(data[i] === '<'){
-                        isInsideTag = true;
-                        i++;
-                        let size = data.indexOf(' ', i);
-                        res.push('{' + data.slice(i, i + size) + ',');
-                        i += size;
+                var res = {};
+                data.getElementByTagName('way').foreach(function(i){
+                    if(i.lastChild.tagName === 'way'){
+                        if(i.getElementByTagName('tag')[0].attributes.k === 'highway'){
+                            res[i.getElementByTagName('tag')[2].attributes.v] = [];
+                            // for
+                        }
                     }
-                    else if(data[i] === '>'){
-                        isInsideTag = false;                  
-                    }
+                });
 
-                    i++;
-                }
                 return res;
             }
 
@@ -46,11 +32,7 @@ Window {
             xhr.onreadystatechange = function() {
                 if ( xhr.readyState == xhr.DONE )
                 {
-                    // var jsonObject = JSON.parse(xhr.responseText);
-                    // console.log(jsonObject.toString());
-                    // console.log(JSON.parse('{"data": "test"}').data);
-                    // console.log(parseData(xhr.responseText));
-                    console.log(parseData(a));
+                    console.log(parseData(xhr.responseXML).toString());
                 }
             }
             var url = 'http://api.openstreetmap.org/api/0.6/map?bbox=-4.6388600,48.3521900,-4.6363600,48.3531700';
