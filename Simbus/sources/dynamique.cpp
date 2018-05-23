@@ -16,10 +16,18 @@ void Dynamique::pathfinding(vec2<float> objectif)
     unsigned int t;
     for(auto route : Route::AllRoute)
     {
-        a = route->getCoordArrive();
+        a = route->getCoordDepart();
         t = sqrt(a.x*coord_actuel.x+a.y*coord_actuel.y)/route->getSpeed();
         if(t < plusProche.temps)
+        {
+            plusProche.r = route;
+            plusProche.temps = t;
+        }
     }
+    for(auto route : plusProche.r->getConnexionDepart())
+        accesible.push_back(routePath(route,t));
+    for(auto route : plusProche.r->getConnexionArrive())
+        accesible.push_back(routePath(route,t));
 }
 
 vec2<float> Dynamique::getSpeed()
