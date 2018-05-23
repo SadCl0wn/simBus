@@ -10,6 +10,7 @@ class Route{
     private:
         vec2<float> coord_Depart;
         vec2<float> coord_Arrive;
+
 };
 
 #endif
