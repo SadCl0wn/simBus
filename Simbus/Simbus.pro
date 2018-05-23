@@ -13,7 +13,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += sources/main.cpp
+SOURCES += sources/main.cpp\
+           sources/arret.cpp\
+           sources/batiment.cpp\
+           sources/dynamique.cpp\
+           sources/interfaceQML.cpp\
+           sources/object.cpp\
+           sources/personne.cpp\
+           sources/route.cpp\
+           sources/simulateur.cpp\
+           sources/transportpublique.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,3 +36,13 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += headers/arret.hpp\
+           headers/batiment.hpp\
+           headers/dynamique.hpp\
+           headers/interfaceQML.hpp\
+           headers/object.hpp\
+           headers/personne.hpp\
+           headers/route.hpp\
+           headers/simulateur.hpp\
+           headers/transportpublique.hpp
