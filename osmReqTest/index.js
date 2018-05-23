@@ -1,131 +1,49 @@
-function parseDataOld(data) {
-    let begining = data.indexOf('<osm');
-    let ending = data.indexOf('</osm>');
-    data = data.slice(begining, ending + 6);
+function parseXML(data) {
+    let res = {
+        elem: 'root',
+        parent: null,
+        children: [],
+        attributes: {}
+    };
 
-    let res = '';
+    let dir = res;
 
-    let isInsideTag = false;
-
-    let i = 0;
-    while (i < data.length) {
-        if (data[i] === '<') {
-            if (data[i + 1] === '/') {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i] === '\n' || data[i] === ' ') {
+        } else if (data[i] === '<') {
+            //comment
+            if (data[i + 1] === '?') {
+                i = data.indexOf('?>') + 2;
+            } //fin balise avec enfants
+            else if (data[i + 1] === '/') {
+                dir = dir.parent;
             } else {
-                isInsideTag = true;
-                let size = data.indexOf(' ', i);
-                res += '{"' + data.slice(i + 1, size) + '":[';
-                i = size;
-            }
-        } else if (data[i] === '>') {
-            if (data[i - 1] === '/') {
-                res += '}';
-            } else {
-                res += 'child:[';
-            }
-            isInsideTag = false;
-        } else if (isInsideTag) {
-            if (data[i] !== ' ' && data[i] !== '/') {
-                let size = data.indexOf('=', i);
-                res += '"' + data.slice(i, size) + '"';
-                i = size;
-                size = data.indexOf('"', i + 2);
-                res += data.slice(i, size + 1);
-                res += ',';
-                i = size;
+                let nameEnd = data.indexOf(' ', i);
+                dir.children.push({
+                    elem: data.slice(i + 1, nameEnd),
+                    parent: dir,
+                    children: [],
+                    attributes: {}
+                });
+
+                let attrString = data.slice(nameEnd, data.indexOf('>', i));
+                for (let j = 0; j < attrString.length; j++) {
+                    if (attrString[j] !== ' ') {
+                        let keyEnd = attrString.indexOf('="', j);
+                        if (keyEnd === -1) break;
+                        let valueEnd = attrString.indexOf('"', keyEnd + 2);
+                        if (valueEnd === -1) valueEnd = attrString.length - 1;
+                        dir.children[dir.children.length - 1].attributes[
+                            attrString.slice(j, keyEnd)
+                        ] = attrString.slice(keyEnd + 2, valueEnd);
+                        j = valueEnd;
+                    }
+                }
+                if (data[data.indexOf('>', i) - 1] !== '/') {
+                    dir = dir.children[dir.children.length - 1];
+                }
             }
         }
-
-        i++;
     }
     return res;
 }
-
-function parseData(data) {
-    let begining = data.indexOf('<osm');
-    let ending = data.indexOf('</osm>');
-    data = data.slice(begining, ending + 6);
-
-    let partRes = [];
-
-    let i = 0;
-    while (i < data.length) {
-        if (data[i] === '<') {
-            if (data[i + 1] === '/') {
-                let sizeName = data.indexOf('>', i);
-                partRes.push({
-                    name: data.slice(i + 2, sizeName),
-                    hasChilds: true,
-                    isClosingTag: true,
-                    tagSize: sizeName - i,
-                    tagPos: i + 2
-                });
-                i = sizeName;
-            } else {
-                let sizeName = data.indexOf(' ', i);
-                let sizeTag = data.indexOf('>', i);
-                if (data[sizeTag - 1] === '/') {
-                    partRes.push({
-                        name: data.slice(i + 1, sizeName),
-                        hasChilds: false,
-                        isClosingTag: false,
-                        tagSize: sizeTag - i,
-                        tagPos: i + 1
-                    });
-                } else {
-                    partRes.push({
-                        name: data.slice(i + 1, sizeName),
-                        hasChilds: true,
-                        isClosingTag: false,
-                        tagSize: sizeTag - i,
-                        tagPos: i + 1
-                    });
-                }
-
-                i = sizeTag;
-            }
-        }
-        i++;
-    }
-    let path = [];
-    let _res = [];
-
-    var res = () => {
-        let tmp = _res;
-        let k = 0;
-        while (k < path.length) {
-            tmp = tmp[path[k]];
-            k++;
-        }
-
-        return tmp;
-    };
-
-    i = 0;
-    while (i < partRes.length) {
-        if (!partRes[i].isClosingTag) {
-            res()[partRes[i].name] = {};
-            if (partRes[i].hasChilds) {
-                res()['childs'] = [];
-                path.push(partRes[i].name);
-            }
-        } else path.pop();
-
-        i++;
-    }
-
-    i = 0;
-
-    return _res;
-}
-
-var a = `<?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="CGImap 0.6.0 (9711 thorn-01.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
-    <bounds minlat="48.3521900" minlon="-4.6388600" maxlat="48.3531700" maxlon="-4.6363600"/>
-    <node id="1186380318" visible="true" version="1" changeset="7458074" timestamp="2011-03-04T21:21:18Z" user="FVig" uid="187752" lat="48.3552519" lon="-4.6331707"/>
-    <way id="135965285" visible="true" version="4" changeset="54211234" timestamp="2017-11-30T17:20:42Z" user="Olyon" uid="1443767">
-        <nd ref="1186372969"/>
-    </way>
-</osm>`;
-
-console.log(parseData(a));

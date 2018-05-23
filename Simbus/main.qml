@@ -33,9 +33,10 @@ Window {
                 if ( xhr.readyState == xhr.DONE )
                 {
                     console.log(parseData(xhr.responseXML).toString());
+                    // console.log(xhr.responseXML.toString());
                 }
             }
-            var url = 'http://api.openstreetmap.org/api/0.6/map?bbox=-4.6388600,48.3521900,-4.6363600,48.3531700';
+            var url = 'https://api.openstreetmap.org/api/0.6/map?bbox=-4.6388600,48.3521900,-4.6363600,48.3531700';
             xhr.open('GET', url, true);
             xhr.send();
         }
