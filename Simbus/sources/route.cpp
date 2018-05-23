@@ -1,4 +1,23 @@
 #include "../headers/route.hpp"
+#include <math.h> 
+
+Route::Route(float speed,float x1,float y1,float x2,float y2)
+{
+    this->speed=speed;
+    coordDepart = vec2<float>(x1,y2);
+    coordArrive = vec2<float>(x2,y2);
+    AllRoute.push_back(this);
+    distance = sqrt(x1*x2+y1*y2);
+}
+
+Route::Route(float speed = 30,float coord[4])
+{
+    this->speed=speed;
+    coordDepart = vec2<float>(coord[0],coord[1]);
+    coordArrive = vec2<float>(coord[2],coord[3]);
+    AllRoute.push_back(this);
+    distance = sqrt(coord[0]*coord[2]+coord[3]*coord[1]);
+}
 
 Route::~Route()
 {
