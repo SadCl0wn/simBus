@@ -4,6 +4,7 @@
 template <typename T>
 struct vec2{
     vec2(T x,T y):x(x),y(y){};
+    bool operator==(vec2 &a){return (a.x==this->x && a.y == this->y);};
     T x;
     T y;
 };
