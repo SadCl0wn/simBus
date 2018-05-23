@@ -1,16 +1,7 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
+#include "../headers/route.hpp"
 
-int main(int argc, char *argv[])
+int main()
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
-    QGuiApplication app(argc, argv);
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())
-        return -1;
-
-    return app.exec();
+    Route r(0.1,0.2,0.3,0.4);
+    return 0;
 }

@@ -2,6 +2,7 @@
 #define __DYNAMIQUE_H__
 
 #include "object.hpp"
+#include "route.hpp"
 #include <vector>
 
 class Dynamique:public Object{
@@ -10,7 +11,7 @@ class Dynamique:public Object{
         vec2<float> getSpeed();
         void setSpeed(float speed[2]); 
         void setSpeed(vec2<float> speed);
-        void pathfinding(vec2<float> );
+        void pathfinding(vec2<float> objectif);
     private:
         vec2<float> speed_;
         std::vector<vec2<float>> parcours;

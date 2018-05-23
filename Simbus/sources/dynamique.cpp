@@ -1,4 +1,26 @@
 #include "../headers/dynamique.hpp"
+#include <limits.h>
+#include <math.h>
+
+struct routePath{
+    Route *r;
+    unsigned int temps;
+};
+
+void Dynamique::pathfinding(vec2<float> objectif)
+{
+    std::vector<routePath> accesible;
+    routePath plusProche{nullptr,UINT_MAX};
+    vec2<float> coord_actuel = this->getCoor();
+    vec2<float> a;
+    unsigned int t;
+    for(auto route : Route::AllRoute)
+    {
+        a = route->getCoordArrive();
+        t = sqrt(a.x*coord_actuel.x+a.y*coord_actuel.y)/route->getSpeed();
+        if(t < plusProche.temps)
+    }
+}
 
 vec2<float> Dynamique::getSpeed()
 {
