@@ -1,8 +1,6 @@
 #ifndef __OBJECT_H__
 #define __OBJECT_H__
 
-//#include <tuple>
-
 template <typename T>
 struct vec2{
     vec2(T x,T y):x(x),y(y){};
