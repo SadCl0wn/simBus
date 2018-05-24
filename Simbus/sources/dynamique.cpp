@@ -24,11 +24,21 @@ void Dynamique::pathfinding(vec2<float> objectif)
             plusProche.temps = t;
         }
     }
-    this->parcours.push_back(plusProche.r->getCoordDepart());    
+    this->parcours.push_back(plusProche.r->getCoordDepart());
+    routePath routeP;
     for(auto route : plusProche.r->getConnexionDepart())
-        accesible.push_back(routePath(route,t));
+    {
+        routeP.r = route;
+        routeP.t = t;
+        accesible.push_back(routeP);
+    }
     for(auto route : plusProche.r->getConnexionArrive())
-        accesible.push_back(routePath(route,t+plusProche.r->getDistance()));
+    {
+        routeP.r = route;
+        routeP.t = t+plusProche.r->getDistance()/route->getSpeed();
+        accesible.push_back(routeP);
+        accesible.push_back(routeP);
+    }
 }
 
 vec2<float> Dynamique::getSpeed()
