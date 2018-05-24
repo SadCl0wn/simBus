@@ -28,8 +28,7 @@ void Dynamique::pathfinding(vec2<float> objectif)
     for(auto route : plusProche.r->getConnexionDepart())
         accesible.push_back(routePath(route,t));
     for(auto route : plusProche.r->getConnexionArrive())
-        accesible.push_back(routePath(route,t));
-    
+        accesible.push_back(routePath(route,t+plusProche.r->getDistance()));
 }
 
 vec2<float> Dynamique::getSpeed()
