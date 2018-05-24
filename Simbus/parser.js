@@ -81,7 +81,7 @@ function parse() {
         }
     };
     var url =
-        'https://api.openstreetmap.org/api/0.6/map?bbox=-4.6388600,48.3521900,-4.6363600,48.3531700';
+        'https://api.openstreetmap.org/api/0.6/map?bbox=-4.5520,48.3733,-4.5321,48.3811&layers=T';
     xhr.open('GET', url, true);
     xhr.send();
 }
