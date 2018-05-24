@@ -9,7 +9,7 @@ class Route
   public:
     static std::vector<Route *> AllRoute;
     Route(float speed = 30, float x1 = 0, float y1 = 0, float x2 = 0, float y2 = 0);
-    Route(float coord[4], float speed = 30);
+    Route(float coord[4], float speed = 30.0);
     ~Route();
     std::vector<Route *> getConnexionArrive() { return connexionArrive; };
     std::vector<Route *> getConnexionDepart() { return connexionDepart; };
