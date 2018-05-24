@@ -10,7 +10,7 @@ Route::Route(float speed,float x1,float y1,float x2,float y2)
     distance = sqrt(x1*x2+y1*y2);
 }
 
-Route::Route(float speed = 30,float coord[4])
+Route::Route(float coord[4], float speed = 30)
 {
     this->speed=speed;
     coordDepart = vec2<float>(coord[0],coord[1]);
