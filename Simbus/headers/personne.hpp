@@ -4,6 +4,8 @@
 #include "dynamique.hpp"
 #include "batiment.hpp"
 
+using size_t = unsigned long long int;
+
 class Batiment;
 
 class  Personne:public Dynamique{
