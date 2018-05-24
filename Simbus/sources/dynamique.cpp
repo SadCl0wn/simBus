@@ -35,7 +35,7 @@ void Dynamique::pathfinding(vec2<float> objectif)
     for(auto route : plusProche.r->getConnexionArrive())
     {
         routeP.r = route;
-        routeP.t = t+plusProche.r->getDistance()/route->getSpeed();
+        routeP.temps = t+plusProche.r->getDistance()/route->getSpeed();
         accesible.push_back(routeP);
         accesible.push_back(routeP);
     }
