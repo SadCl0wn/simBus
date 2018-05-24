@@ -24,6 +24,7 @@ void Dynamique::pathfinding(vec2<float> objectif)
             plusProche.temps = t;
         }
     }
+    this->parcours.push_back(plusProche.r->getCoordDepart());    
     for(auto route : plusProche.r->getConnexionDepart())
         accesible.push_back(routePath(route,t));
     for(auto route : plusProche.r->getConnexionArrive())
