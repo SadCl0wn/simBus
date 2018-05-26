@@ -7,22 +7,41 @@ Parametres::Parametres(QObject* parent):QObject(parent)
 {
     isValidParam=false;
 }
-QString Parametres::recupadressedepart(){
-    return adressedepart;
+QString Parametres::recuplatitudeHG(){
+    return latitudeHG;
 
 
 }
-void Parametres::setadressedepart(QString adressedep){
-    adressedepart=adressedep;
+void Parametres::setlatitudeHG(QString latHG){
+    latitudeHG=latHG;
     isValidParam=false;
 
 }
-QString Parametres::recupadressearrivee(){
-    return adressearrivee;
+QString Parametres::recuplongitudeHG(){
+    return longitudeHG;
 
 }
-void Parametres::setadressearrivee(QString adressearr){
-    adressearrivee=adressearr;
+void Parametres::setlongitudeHG(QString longHG){
+    longitudeHG=longHG;
+    isValidParam=false;
+
+}
+QString Parametres::recuplatitudeBD(){
+    return latitudeBD;
+
+
+}
+void Parametres::setlatitudeBD(QString latBD){
+    latitudeBD=latBD;
+    isValidParam=false;
+
+}
+QString Parametres::recuplongitudeBD(){
+    return longitudeBD;
+
+}
+void Parametres::setlongitudeBD(QString longBD){
+    longitudeBD=longBD;
     isValidParam=false;
 
 }
@@ -63,11 +82,13 @@ QString Parametres::textvalue(int value){
      if ( file.open(QIODevice::WriteOnly|QIODevice::Text) ) //on l ouvre en lecture/ecrire
      {
          QTextStream stream( &file ); //creation flux
-         stream <<"adresse_de_depart ="<< recupadressedepart() << "\n";// transfert adresse depart via le flux
-         stream <<"adresse_d_arrivee ="<<recupadressearrivee() << endl;// transfert adresse arrivee via le flux
+         stream <<"latitudeHG ="<< recuplatitudeHG() << "\n";// transfert adresse depart via le flux
+         stream <<"longitudeHG ="<<recuplongitudeHG() << endl;// transfert adresse arrivee via le flux
+         stream <<"latitudeBD ="<<  recuplatitudeBD()<< "\n";// transfert adresse depart via le flux
+         stream <<"longitudeBD ="<<recuplongitudeBD() << endl;
         // stream <<recupheure() << endl;// transfert heure via le flux
         //stream <<recupminute() << endl;// transfert minute via le flux
-         stream <<"horaire ="<<textvalue(recupheure()) << ":"<<textvalue(recupminute()) << endl;
+         //stream <<"horaire ="<<textvalue(recupheure()) << ":"<<textvalue(recupminute()) << endl;
          for (QString arret: coordonnees){
              stream<<arret<<endl;
          }

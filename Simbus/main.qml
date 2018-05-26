@@ -7,7 +7,8 @@ import QtLocation 5.6
 import QtPositioning 5.6
 import QtLocation 5.3
 import "parser.js" as Parser
-//Parser.parse();
+
+
 ApplicationWindow {
     id: window
     visible: true
@@ -15,12 +16,20 @@ ApplicationWindow {
     width:330
     Parametres{
         id:param
-        adressedepart:""
-        adressearrivee:""
+        latitudeBD:""
+        longitudeBD:""
+        latitudeHG:""
+        longitudeHG:""
         heure: 0
         minute:0
 
-    }
+    }/*
+    function resultatParse(pointArrets){
+        for (var i=0;i<pointArrets.lenght;i++){
+        markermodel.addMarker(coordonees)
+        }
+
+    }*/
 
     color: "#00000000"
 
@@ -30,7 +39,7 @@ ApplicationWindow {
         y: 9
         width: 330
         height: 381
-        visible: true
+        visible: false
         source: "interfacesimbus.png"
     }
 
@@ -40,7 +49,7 @@ ApplicationWindow {
         y: 0
         width: 1876
         height: 1052
-        visible: false
+        visible: true
         title: "simBus"
 
 
@@ -159,12 +168,7 @@ ApplicationWindow {
             border.color: "#000000"
             border.width: 4
 
-            Slider {
-                id: slider
-                x: 1439
-                y: 120
-                value: 0.5
-            }
+
 
             Button {
                 id: valider
@@ -173,8 +177,10 @@ ApplicationWindow {
                 width: 128
                 height: 40
                 onClicked: {
-                    param.adressedepart=ad.text
-                    param.adressearrivee=aa.text
+                    param.longitudeHG=longitudehg.text
+                    param.latitudeHG=latitudehg.text
+                    param.longitudeBD=longitudebd.text
+                    param.latitudeBD=latitudebd.text
                     param.heure=heure.value
                     param.minute=minute.value
                     param.save()
@@ -187,33 +193,7 @@ ApplicationWindow {
                 font.family: "Times New Roman"
             }
 
-            TextField {
-                id: aa
-                text:param.adressearrivee
-                x: 231
-                y: 113
-                font.pointSize: 18
-            }
 
-            TextField {
-                id: ad
-                text:param.adressedepart
-                x: 231
-                y: 41
-                font.pointSize: 18
-            }
-
-            Text {
-                id: zoom
-                x: 1340
-                y: 128
-                width: 56
-                height: 24
-                color: "#000000"
-                text: qsTr("Zoom")
-                font.family: "Tahoma"
-                font.pixelSize: 18
-            }
 
             Text {
                 id: horaire
@@ -228,25 +208,13 @@ ApplicationWindow {
             }
 
             Text {
-                id: adressearrivee
-                x: 68
-                y: 120
-                width: 153
-                height: 26
-                color: "#000000"
-                text: qsTr("Adresse d'arrivée")
-                font.family: "Tahoma"
-                font.pixelSize: 18
-            }
-
-            Text {
-                id: adressedepart
-                x: 68
-                y: 48
-                width: 153
+                id: coordonneesHG
+                x: 8
+                y: 49
+                width: 303
                 height: 25
                 color: "#000000"
-                text: qsTr("Adresse de départ")
+                text: qsTr("Coordonnées Point en Haut à Gauche")
                 font.family: "Tahoma"
                 font.pixelSize: 18
             }
@@ -293,19 +261,20 @@ ApplicationWindow {
                 font.pointSize: 14
                 onClicked: {
                     //param.ajoutArret("55,66");
-                    markermodel.setAddAction(true)
+                    markermodel2.setAddAction(true)
                 }
             }
 
             Button {
-                id: modifArret
+                id: valzone
                 x: 857
                 y: 120
                 width: 163
-                text: qsTr("modifier arret")
+                text: qsTr("VALIDER ZONE DE TRAVAIL")
                 font.pointSize: 14
+
                 onClicked: {
-                    param.modificationArret("55,66","33,88");
+                    Parser.parse(longitudehg.text,latitudehg.text,longitudebd.text,latitudebd.text)
                 }
             }
 
@@ -320,6 +289,60 @@ ApplicationWindow {
                 onClicked: {
                     param.supprimerArret("55,66");
                 }
+            }
+
+            Text {
+                id: coordonneesBD
+                x: 8
+                y: 121
+                width: 284
+                height: 25
+                color: "#000000"
+                text: qsTr("Coordonnées Point en Bas à Droite")
+                font.family: "Tahoma"
+                font.pixelSize: 18
+            }
+
+            Text {
+                id: longitudehg
+                x: 433
+                y: 49
+                width: 73
+                height: 24
+                text:""
+                font.capitalization: Font.SmallCaps
+                font.pixelSize: 12
+
+            }
+
+            Text {
+                id: latitudehg
+                x: 333
+                y: 49
+                width: 73
+                height: 26
+                text: ""
+                font.pixelSize: 12
+            }
+
+            Text {
+                id: latitudebd
+                x: 327
+                y: 121
+                width: 73
+                height: 26
+                text: ""
+                font.pixelSize: 12
+            }
+
+            Text {
+                id: longitudebd
+                x: 433
+                y: 121
+                width: 73
+                height: 26
+                text: ""
+                font.pixelSize: 12
             }
 
 
@@ -347,29 +370,34 @@ ApplicationWindow {
             height: 852
             color: "#ffffff"
 
-        Plugin {
-               id: mapPlugin
-               name: "osm"
+            Plugin {
+                id: mapPlugin
+                name: "osm"
 
-        }
+            }
 
-        Map {
-            id:mapview
-            anchors.rightMargin: -5
-            anchors.bottomMargin: -4
-            anchors.topMargin: -6
-            anchors.leftMargin: -17
-            anchors.fill: parent
-            plugin: mapPlugin
-            center: QtPositioning.coordinate( 48.390394,-4.486076) // brest
-            zoomLevel: 14
-             MapItemView{
-                 model:markermodel
-                 delegate: mapcomponent
-             }
+            Map {
+                id:mapview
+                anchors.rightMargin: -5
+                anchors.bottomMargin: -4
+                anchors.topMargin: -6
+                anchors.leftMargin: -17
+                anchors.fill: parent
+                plugin: mapPlugin
+                center: QtPositioning.coordinate( 48.390394,-4.486076) // brest
+                zoomLevel: 14
+                MapItemView{
+                    model:markermodel
+                    delegate: mapcomponent
+                }
+                MapItemView{
+                    model:markermodel2
+                    delegate: mapcomponent2
+                }
 
-           }
-        Component {
+
+            }
+            Component {
                 id: mapcomponent
                 MapQuickItem {
                     id: marker
@@ -383,6 +411,21 @@ ApplicationWindow {
                     }
                 }
             }
+            Component {
+                id: mapcomponent2
+                MapQuickItem {
+                    id: marker2
+                    anchorPoint.x: imagemarker2.width/4
+                    anchorPoint.y: imagemarker2.height
+                    coordinate: position
+
+                    sourceItem: Image {
+                        id: imagemarker2
+                        source: "http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_green.png"
+                    }
+                }
+            }
+
 
             MouseArea {
                 anchors.fill: parent
@@ -390,13 +433,23 @@ ApplicationWindow {
                 onPressAndHold:  {
                     var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
                     //console.log(coordinate.latitude+ "-" + coordinate.longitude)
-                   markermodel.addMarker(coordinate)
+                    markermodel2.addMarker(coordinate)
                     param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
-                }
-            }
-    }
 
+                }
+                onWheel: { var coordinateTopLeft = mapview.toCoordinate(Qt.point(map.x, map.y))
+                var coordinateBottomRight = mapview.toCoordinate(Qt.point(mapview.x+mapview.width, mapview.y+mapview.height))
+                longitudehg.text=coordinateTopLeft.longitude
+                latitudehg.text=coordinateTopLeft.latitude
+                longitudebd.text=coordinateBottomRight.longitude
+                latitudebd.text=coordinateBottomRight.latitude
+                    wheel.accepted=false
+            }
+            }
         }
+
+
+    }
 
 
 }
