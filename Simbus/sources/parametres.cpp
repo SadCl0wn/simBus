@@ -106,18 +106,7 @@ QString Parametres::textvalue(int value){
      isValidParam=false;
 
  }
- void Parametres::modificationArret(QString before_pos,QString new_pos){
-     int index= coordonnees.indexOf(before_pos);   // recuperer l'index de l'ancienne position
-     if (index> -1){    // si index > -1 , c est qu on a trouvé l'ancienne coordonnée dans le tableau
-         coordonnees.removeAt(index); //on supprime la coordonnée de l ancienne coordonnée
-         coordonnees.insert(index,new_pos); // on ajoute la nouvelle coordonnée dans le tableau sur la meme ligne
-    }
-    qDebug() << coordonnees;//afficher le contenu du tableau
-    isValidParam=false;
 
-
-
- }
  void Parametres::supprimerArret(QString pos){
      int index= coordonnees.indexOf(pos);   // recuperer l'index de l'ancienne position
      if (index> -1){    // si index > -1 , c est qu on a trouvé l'ancienne coordonnée dans le tableau

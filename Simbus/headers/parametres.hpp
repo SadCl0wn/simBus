@@ -35,7 +35,7 @@ public:
     void setminute(int min);
 
     Q_INVOKABLE void ajoutArret(const QString &new_pos); //dialogue bouton pour ajouter arret
-    Q_INVOKABLE void modificationArret(QString before_pos,QString new_pos);
+
     Q_INVOKABLE void supprimerArret(QString pos);
     Q_INVOKABLE void simuler();
 

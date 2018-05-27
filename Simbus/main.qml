@@ -12,7 +12,7 @@ import "parser.js" as Parser
 ApplicationWindow {
     id: window
     visible: true
-    height:381
+    height:416
     width:330
     Parametres{
         id:param
@@ -40,10 +40,10 @@ ApplicationWindow {
     Image {
         id: image
         x: 0
-        y: 9
+        y: 0
         width: 330
-        height: 381
-        visible: false
+        height: 416
+        visible: true
         source: "interfacesimbus.png"
     }
 
@@ -53,7 +53,7 @@ ApplicationWindow {
         y: 0
         width: 1876
         height: 1052
-        visible: true
+        visible: false
         title: "simBus"
 
         Timer {
@@ -204,8 +204,8 @@ ApplicationWindow {
 
             Text {
                 id: coordonneesHG
-                x: 8
-                y: 49
+                x: 170
+                y: 18
                 width: 303
                 height: 25
                 color: "#000000"
@@ -265,7 +265,7 @@ ApplicationWindow {
                 x: 857
                 y: 120
                 width: 163
-                text: qsTr("VALIDER ZONE DE TRAVAIL")
+                text: qsTr("VALIDER ZONE ")
                 font.pointSize: 14
 
                 onClicked: {
@@ -282,15 +282,15 @@ ApplicationWindow {
                 text: qsTr("supprimer arret")
                 font.pointSize: 14
                 onClicked: {
-                    param.supprimerArret("55,66");
+                    markermodel2.setDelete(true)
                 }
             }
 
             Text {
                 id: coordonneesBD
-                x: 8
-                y: 121
-                width: 284
+                x: 170
+                y: 101
+                width: 303
                 height: 25
                 color: "#000000"
                 text: qsTr("Coordonnées Point en Bas à Droite")
@@ -300,9 +300,9 @@ ApplicationWindow {
 
             Text {
                 id: longitudehg
-                x: 433
-                y: 49
-                width: 73
+                x: 442
+                y: 58
+                width: 134
                 height: 24
                 text:""
                 font.capitalization: Font.SmallCaps
@@ -311,9 +311,9 @@ ApplicationWindow {
 
             Text {
                 id: latitudehg
-                x: 333
-                y: 49
-                width: 73
+                x: 170
+                y: 57
+                width: 127
                 height: 26
                 text: ""
                 font.pixelSize: 12
@@ -321,22 +321,61 @@ ApplicationWindow {
 
             Text {
                 id: latitudebd
-                x: 327
-                y: 121
-                width: 73
+                x: 170
+                y: 138
+                width: 127
+                height: 26
+                font.pixelSize: 12
+            }
+
+            Text {
+                id: longitudebd
+                x: 442
+                y: 137
+                width: 134
                 height: 26
                 text: ""
                 font.pixelSize: 12
             }
 
             Text {
-                id: longitudebd
-                x: 433
-                y: 121
-                width: 73
-                height: 26
-                text: ""
-                font.pixelSize: 12
+                id: text1
+                x: 82
+                y: 138
+                width: 77
+                height: 23
+                text: qsTr("Latitude:")
+                font.pixelSize: 16
+            }
+
+            Text {
+                id: text2
+                x: 359
+                y: 138
+                width: 77
+                height: 23
+                text: qsTr("Longitude:")
+                font.pixelSize: 16
+            }
+
+            Text {
+                id: text3
+                x: 359
+                y: 59
+                width: 77
+                height: 23
+                text: qsTr("Longitude:")
+                font.pixelSize: 16
+            }
+
+            Text {
+                id: text4
+                x: 82
+                y: 59
+                width: 77
+                height: 23
+                text: qsTr("Latitude:")
+                font.pixelSize: 16
             }
         }
 
@@ -410,6 +449,7 @@ ApplicationWindow {
                     var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
                     markermodel2.addMarker(coordinate)
                     param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
+
                 }
 
                 onWheel: { var coordinateTopLeft = mapview.toCoordinate(Qt.point(map.x, map.y))
