@@ -23,13 +23,17 @@ ApplicationWindow {
         heure: 0
         minute:0
 
-    }/*
-    function resultatParse(pointArrets){
-        for (var i=0;i<pointArrets.lenght;i++){
-        markermodel.addMarker(coordonees)
-        }
+    }
 
-    }*/
+    function resultatParse(pointArrets) {
+        var keys = Object.keys(pointArrets)
+        for(var i=0 ; i<keys.length ; i++) {
+            var point = pointArrets[keys[i]]
+            var coord = mapview.toCoordinate(Qt.point(point.x, point.y))
+            markermodel.addMarker(coord)
+            markermodel.setAddAction(true)
+        }
+    }
 
     color: "#00000000"
 
@@ -52,7 +56,6 @@ ApplicationWindow {
         visible: true
         title: "simBus"
 
-
         Timer {
             interval: 5000; running: true
             onTriggered: {
@@ -63,8 +66,6 @@ ApplicationWindow {
                 window.width=1920
                 window.height=1080
             }
-
-
         }
 
         Rectangle {
@@ -168,8 +169,6 @@ ApplicationWindow {
             border.color: "#000000"
             border.width: 4
 
-
-
             Button {
                 id: valider
                 x: 1340
@@ -184,16 +183,12 @@ ApplicationWindow {
                     param.heure=heure.value
                     param.minute=minute.value
                     param.save()
-
-
                 }
 
                 text: qsTr("Valider")
                 font.pointSize: 18
                 font.family: "Times New Roman"
             }
-
-
 
             Text {
                 id: horaire
@@ -312,7 +307,6 @@ ApplicationWindow {
                 text:""
                 font.capitalization: Font.SmallCaps
                 font.pixelSize: 12
-
             }
 
             Text {
@@ -344,22 +338,6 @@ ApplicationWindow {
                 text: ""
                 font.pixelSize: 12
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
         Rectangle {
@@ -373,7 +351,6 @@ ApplicationWindow {
             Plugin {
                 id: mapPlugin
                 name: "osm"
-
             }
 
             Map {
@@ -394,9 +371,8 @@ ApplicationWindow {
                     model:markermodel2
                     delegate: mapcomponent2
                 }
-
-
             }
+
             Component {
                 id: mapcomponent
                 MapQuickItem {
@@ -411,6 +387,7 @@ ApplicationWindow {
                     }
                 }
             }
+
             Component {
                 id: mapcomponent2
                 MapQuickItem {
@@ -426,30 +403,24 @@ ApplicationWindow {
                 }
             }
 
-
             MouseArea {
                 anchors.fill: parent
 
                 onPressAndHold:  {
                     var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
-                    //console.log(coordinate.latitude+ "-" + coordinate.longitude)
                     markermodel2.addMarker(coordinate)
                     param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
-
                 }
+
                 onWheel: { var coordinateTopLeft = mapview.toCoordinate(Qt.point(map.x, map.y))
-                var coordinateBottomRight = mapview.toCoordinate(Qt.point(mapview.x+mapview.width, mapview.y+mapview.height))
-                longitudehg.text=coordinateTopLeft.longitude
-                latitudehg.text=coordinateTopLeft.latitude
-                longitudebd.text=coordinateBottomRight.longitude
-                latitudebd.text=coordinateBottomRight.latitude
+                    var coordinateBottomRight = mapview.toCoordinate(Qt.point(mapview.x+mapview.width, mapview.y+mapview.height))
+                    longitudehg.text=coordinateTopLeft.longitude
+                    latitudehg.text=coordinateTopLeft.latitude
+                    longitudebd.text=coordinateBottomRight.longitude
+                    latitudebd.text=coordinateBottomRight.latitude
                     wheel.accepted=false
-            }
+                }
             }
         }
-
-
     }
-
-
 }
