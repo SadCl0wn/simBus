@@ -69,7 +69,7 @@ function instantiateAll(data) {
                 }
             }
         }
-        for (var i = 0; i < data.children.length; i++) {}
+        // for (var i = 0; i < data.children.length; i++) {}
     }
 }
 
@@ -77,7 +77,8 @@ function parse() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == xhr.DONE) {
-            instantiateAll(parseXML(xhr.responseText));
+            // instantiateAll(parseXML(xhr.responseText));
+            console.log(parseXML(xhr.responseText).children[0].children.length);
         }
     };
     var url =
