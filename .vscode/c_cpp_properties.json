@@ -11,7 +11,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/c++/4.8.2",
-                "/usr/include/c++/4.8.2/x86_64-redhat-linux"
+                "/usr/include/c++/4.8.2/x86_64-redhat-linux",
+                "/usr/include/linux"
             ],
             "defines": [],
             "cStandard": "c11",
