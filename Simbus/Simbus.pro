@@ -22,7 +22,8 @@ SOURCES += sources/main.cpp\
            sources/route.cpp\
            sources/simulateur.cpp\
            sources/transportpublique.cpp \
-            sources/parametres.cpp
+           sources/parametres.cpp\
+           headers/interfaceQML.hpp\
 
 RESOURCES += qml.qrc
 
@@ -46,5 +47,6 @@ HEADERS += headers/arret.hpp\
            headers/route.hpp\
            headers/simulateur.hpp\
            headers/transportpublique.hpp \
+           headers/interfaceQML.hpp\
     headers/parametres.hpp \
     headers/markermodel.hpp

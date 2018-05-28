@@ -6,6 +6,8 @@ import QtQuick.Window 2.0
 import QtLocation 5.6
 import QtPositioning 5.6
 import QtLocation 5.3
+
+import InterfaceQML
 import "parser.js" as Parser
 
 
@@ -14,6 +16,9 @@ ApplicationWindow {
     visible: true
     height:416
     width:330
+    InterfaceQML{
+        id:interfaceQml;
+    }
     Parametres{
         id:param
         latitudeBD:""
