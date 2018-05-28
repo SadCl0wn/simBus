@@ -13,7 +13,7 @@ void Dynamique::pathfinding(vec2<float> objectif)
     routePath plusProche{nullptr,UINT_MAX};
     vec2<float> coord_actuel = this->getCoor();
     vec2<float> a;
-    unsigned int t;
+    unsigned int t=0;
     for(auto route : Route::AllRoute)
     {
         a = route->getCoordDepart();

@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>parser.js</file>
+        <file>interfacesimbus.png</file>
     </qresource>
 </RCC>

@@ -24,6 +24,7 @@ public:
         setAddAction(false);
     }
 
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override{
         Q_UNUSED(parent)
         return m_coordinates.count();
@@ -48,9 +49,11 @@ public:
 
     }
 
+
 private:
     QList<QGeoCoordinate> m_coordinates;
     bool allowMarker;
+
 };
 
 #endif // MARKERMODEL_H

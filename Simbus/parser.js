@@ -73,7 +73,8 @@ function instantiateAll(data) {
     }
 }
 
-function parse() {
+function parse(longHG, latHG, longBD, latBD) {
+    console.log(longHG, latHG, longBD, latBD)
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == xhr.DONE) {
@@ -81,8 +82,17 @@ function parse() {
             console.log(parseXML(xhr.responseText).children[0].children.length);
         }
     };
+
+    // Appel API:
+    // TODO: Déterminer les min et max des longitudes et latitudes avant appel à l'API
+    //var url =
+    //    'https://api.openstreetmap.org/api/0.6/map?bbox=min_longitude,min_latitude,max_longitude,max_longitude&layers=T';
+
+    //var url =
+    //    'https://api.openstreetmap.org/api/0.6/map?bbox=-4.5520,48.3733,-4.5321,48.3811&layers=T';
     var url =
-        'https://api.openstreetmap.org/api/0.6/map?bbox=-4.5520,48.3733,-4.5321,48.3811&layers=T';
+           'https://api.openstreetmap.org/api/0.6/map?bbox=' + longHG + ',' + latBD + ',' + longBD + ',' + latHG + '&layers=T';
+    console.log(url);
     xhr.open('GET', url, true);
     xhr.send();
 }
