@@ -3,6 +3,7 @@
 #include <QQmlContext>
 
 #include "../headers/parametres.hpp"
+#include "../headers/interfaceQML.hpp"
 #include "../headers/markermodel.hpp"
 
 int main(int argc, char *argv[])
@@ -19,6 +20,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("markermodel", &markermodel);
     engine.rootContext()->setContextProperty("markermodel2", &markermodel2);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+    InterfaceQML interfaceQml;
 
     if (engine.rootObjects().isEmpty())
         return -1;
