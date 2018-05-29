@@ -4,7 +4,7 @@
 #include "dynamique.hpp"
 #include "batiment.hpp"
 
-using size_t = unsigned long long int;
+typedef long unsigned int size_t;
 
 class Batiment;
 
