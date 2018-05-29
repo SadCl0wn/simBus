@@ -25,10 +25,17 @@ bool Batiment::popPersonne(Personne *personne)
 }
 void Batiment::pushPersonnes(Personne *personne)
 {
+    std::vector<Personne *> n=p.getPersonnes();
+    if (n<this->getnbPersonnesMax()){
+    personne.pushPersonnes();
     personnes.push_back(personne);
 }
 
 std::vector<Personne*> Batiment::getPersonnes()
 {
     return personnes;
+}
+
+unsigned Batiment::getnbPersonnesMax(){
+    return nbPersonneMax
 }

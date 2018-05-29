@@ -9,15 +9,19 @@ class Arret;
 
 class  Transportpublique:public Dynamique{
     public:
-        Transportpublique(float x=0,float y=0,float speed_max=80,int nbpmax=0,int nbpmoy=0,int cappacity=40):Dynamique(x,y,speed_max){};
+        Transportpublique(float x=0,float y=0,float speed_x=0,float speed_y=0,int nbpmax=0,int nbpmoy=0,int cappacity=40):Dynamique(x,y,speed_x,speed_y){};
         ~Transportpublique();
         bool popArrets(Arret *arret);
         void pushArrets(Arret *arret);
         std::vector<Arret *> getArrets();
 
         bool popPersonnes(Personne *personne);
-          void pushPersonnes(Personne *personne);
-          std::vector<Personne *> getPersonnes();
+        void pushPersonnes(Personne *personne);
+        std::vector<Personne *> getPersonnes();
+        Arret* Transportpublique::Check_Arret();
+        void Transportpublique::Actualiser_bus();
+        void Transportpublique::getpassagers(Arret* a);
+        void Transportpublique::descendre(Arret* a)
     private:
         std::vector<Arret *> arrets;
         std::vector<Personne *> personnes;
