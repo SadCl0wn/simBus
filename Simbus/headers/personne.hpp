@@ -10,7 +10,7 @@ class Batiment;
 
 class  Personne:public Dynamique{
     public:
-        Personne(float x=0,float y=0,float speed_x=0,float speed_y=0):Dynamique(x,y,speed_x,speed_y){};
+        Personne(float x=0,float y=0,float speed_max=3):Dynamique(x,y,speed_max){};
         ~Personne();
         bool popObjectifs(Batiment *batiment);
         void pushObjectifs(Batiment *batiment);

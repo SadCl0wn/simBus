@@ -9,7 +9,7 @@ class Arret;
 
 class  Transportpublique:public Dynamique{
     public:
-        Transportpublique(float x=0,float y=0,float speed_x=0,float speed_y=0,int nbpmax=0,int nbpmoy=0,int cappacity=40):Dynamique(x,y,speed_x,speed_y){};
+        Transportpublique(float x=0,float y=0,float speed_max=80,int nbpmax=0,int nbpmoy=0,int cappacity=40):Dynamique(x,y,speed_max){};
         ~Transportpublique();
         bool popArrets(Arret *arret);
         void pushArrets(Arret *arret);
