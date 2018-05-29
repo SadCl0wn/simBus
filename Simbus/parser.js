@@ -51,7 +51,7 @@ function parseXML(data) {
 function instantiateAll(data) {
     data = data.children[0];
     var points = {};
-    var obj = [];
+    var obj = { arrets: [], routes: [] };
 
     for (var i = 0; i < data.children.length; i++) {
         if (data.children[i].elem === 'node') {
@@ -68,31 +68,66 @@ function instantiateAll(data) {
                     obj.push(data.children[i]);
                 }
             }
+        } else if (data.children[i].elem === 'relation') {
+            let arrets = [];
+            let isBus = false;
+            for (var j = 0; j < data.children[i].children.length; j++) {
+                if (
+                    data.children[i].children[j].elem === 'member' &&
+                    data.children[i].children[j].attributes.role === 'platform'
+                ) {
+                    arrets.push({
+                        x:
+                            points[
+                                'r' +
+                                    data.children[i].children[j].attributes.ref
+                                        .x
+                            ],
+                        y:
+                            points[
+                                'r' +
+                                    data.children[i].children[j].attributes.ref
+                                        .y
+                            ]
+                    });
+                } else if (
+                    data.children[i].children[j].elem === 'tag' &&
+                    data.children[i].children[j].attributes.k === 'route' &&
+                    data.children[i].children[j].attributes.v === 'bus'
+                ) {
+                    isBus = true;
+                }
+            }
+            if(isBus){
+                obj.arrets.push(arrets);
+            }
         }
-        // for (var i = 0; i < data.children.length; i++) {}
+        for (var i = 0; i < obj.arrets.length; i++) {}
     }
 }
 
 function parse(longHG, latHG, longBD, latBD) {
-    console.log(longHG, latHG, longBD, latBD)
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
-        if (xhr.readyState == xhr.DONE) {
+        if (xhr.readyState === xhr.DONE) {
+            // @ts-ignore
+            interfaceQml.arrets();
             // instantiateAll(parseXML(xhr.responseText));
-            console.log(parseXML(xhr.responseText).children[0].children.length);
         }
     };
-
-    // Appel API:
-    // TODO: Déterminer les min et max des longitudes et latitudes avant appel à l'API
-    //var url =
-    //    'https://api.openstreetmap.org/api/0.6/map?bbox=min_longitude,min_latitude,max_longitude,max_longitude&layers=T';
-
     //var url =
     //    'https://api.openstreetmap.org/api/0.6/map?bbox=-4.5520,48.3733,-4.5321,48.3811&layers=T';
     var url =
-           'https://api.openstreetmap.org/api/0.6/map?bbox=' + longHG + ',' + latBD + ',' + longBD + ',' + latHG + '&layers=T';
-    console.log(url);
+        'https://api.openstreetmap.org/api/0.6/map?bbox=' +
+        longHG +
+        ',' +
+        latBD +
+        ',' +
+        longBD +
+        ',' +
+        latHG +
+        '&layers=T';
+    // console.log(url);
     xhr.open('GET', url, true);
     xhr.send();
 }
