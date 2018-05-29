@@ -8,7 +8,7 @@ class  Transportpublique;
 
 class  Arret:public Batiment{
     public:
-        Arret(std::vector<size_t> h,float x=0,float y=0, int tmp=0, size_t tma=0, int nbpj=0,int nbpm=0):Batiment(x,y){};
+        Arret(std::vector<size_t> h,float x=0,float y=0):Batiment(x,y){};
         ~Arret();
         bool popLignes(Transportpublique *transportpublique);
         void pushLignes(Transportpublique *transportpublique);

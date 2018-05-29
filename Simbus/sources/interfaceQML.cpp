@@ -4,7 +4,11 @@
 InterfaceQML::InterfaceQML(QObject *parent) : QObject(parent)
 {
 }
+std::vector<Object> InterfaceQML::objects() const
+{
+    return _objects;
+}
 void InterfaceQML::arret()
 {
-    qDebug() << "coucou";
+    _objects.emplace_back(Arret(std::vector<size_t>(), 0, 0));
 }

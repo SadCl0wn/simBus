@@ -111,7 +111,7 @@ function parse(longHG, latHG, longBD, latBD) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === xhr.DONE) {
             // @ts-ignore
-            interfaceQml.arrets();
+            interfaceQml.arret();
             // instantiateAll(parseXML(xhr.responseText));
         }
     };

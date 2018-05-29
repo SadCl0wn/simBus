@@ -7,6 +7,8 @@ import QtLocation 5.6
 import QtPositioning 5.6
 import QtLocation 5.3
 
+import InterfaceQml 1.0
+
 import "parser.js" as Parser
 
 
@@ -24,6 +26,10 @@ ApplicationWindow {
         heure: 0
         minute:0
 
+    }
+
+    InterfaceQml{
+        id: interfaceQml
     }
 
     function resultatParse(pointArrets) {
@@ -58,7 +64,7 @@ ApplicationWindow {
         title: "simBus"
 
         Timer {
-            interval: 5000; running: true
+            interval: 1; running: true
             onTriggered: {
                 image.visible=false
                 window.x=0

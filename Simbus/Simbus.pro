@@ -23,7 +23,6 @@ SOURCES += sources/main.cpp\
            sources/simulateur.cpp\
            sources/transportpublique.cpp \
            sources/parametres.cpp\
-           headers/interfaceQML.hpp\
 
 RESOURCES += qml.qrc
 

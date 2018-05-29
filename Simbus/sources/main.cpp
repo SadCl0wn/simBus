@@ -15,13 +15,14 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    
     qmlRegisterType<Parametres>("Parametres", 1,0, "Parametres");
+    qmlRegisterType<InterfaceQML>("InterfaceQml", 1,0, "InterfaceQml");
+
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("markermodel", &markermodel);
     engine.rootContext()->setContextProperty("markermodel2", &markermodel2);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-    InterfaceQML interfaceQml;
 
     if (engine.rootObjects().isEmpty())
         return -1;
