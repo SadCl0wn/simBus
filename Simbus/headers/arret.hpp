@@ -4,7 +4,7 @@
 #include "batiment.hpp"
 #include "transportPublique.hpp"
 
-class  Transportpublique;
+class Transportpublique;
 
 class  Arret:public Batiment{
     public:
@@ -17,6 +17,9 @@ class  Arret:public Batiment{
         std::vector<size_t> horaires;
         std::vector<Transportpublique *> lignes;
 
+  private:
+    std::vector<size_t> horaires;
+    std::vector<Transportpublique *> lignes;
 };
 
 #endif

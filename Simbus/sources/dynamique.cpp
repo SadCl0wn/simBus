@@ -5,7 +5,7 @@
 
 struct RoutePath
 {
-    bool addAccessible(std::vector<RoutePath> &accessible, float speed_object);
+    bool addAccessible(std::vector<RoutePath> &accessible, std::vector<RoutePath> &parcourue, float speed_object);
     Route *r;
     unsigned int temps;
     vec2<float> precedent;
@@ -22,18 +22,18 @@ bool RoutePath::addAccessible(std::vector<RoutePath> &accessible, std::vector<Ro
         routeP.temps = this->temps;
         routeP.precedent = this->r->getCoordDepart();
         bool aHit = false;
-        std::for_each(accessible.beging(), accessible.end(), [routeP, &aHit](RoutePath &a) {
+        std::for_each(accessible.begin(), accessible.end(), [&routeP, &aHit](RoutePath &a) {
             if (a.r == routeP.r)
             {
                 aHit = true;
                 if (a.temps > routeP.temps)
                 {
-                    a.precedent = route.precedent;
+                    a.precedent = routeP.precedent;
                     a.temps = routeP.temps;
                 }
             }
         });
-        std::for_each(parcourue.beging(), parcourue.end(), [routeP, &aHit](RoutePath &a) {if(a.r == routeP.r)aHit = true; });
+        std::for_each(parcourue.begin(), parcourue.end(), [&routeP, &aHit](RoutePath &a) {if(a.r == routeP.r)aHit = true; });
         if (!aHit)
             accessible.push_back(routeP);
     }
@@ -45,18 +45,20 @@ bool RoutePath::addAccessible(std::vector<RoutePath> &accessible, std::vector<Ro
         float routeSpeed = route->getSpeed();
         routeP.temps = this->temps + this->r->getDistance() / ((routeSpeed < speed_object) ? routeSpeed : speed_object);
         routeP.precedent = this->r->getCoordDepart();
-        std::for_each(accessible.beging(), accessible.end(), [routeP, &aHit](RoutePath &a) {
+        bool aHit = false;
+        std::for_each(accessible.begin(), accessible.end(), [&routeP, &aHit](RoutePath &a) {
             if (a.r == routeP.r)
             {
                 aHit = true;
                 if (a.temps > routeP.temps)
+
                 {
-                    a.precedent = route.precedent;
+                    a.precedent = routeP.precedent;
                     a.temps = routeP.temps;
                 }
             }
         });
-        std::for_each(parcourue.beging(), parcourue.end(), [routeP, &aHit](RoutePath &a) {if(a.r == routeP.r)aHit = true; });
+        std::for_each(parcourue.begin(), parcourue.end(), [&routeP, &aHit](RoutePath &a) {if(a.r == routeP.r)aHit = true; });
         if (!aHit)
             accessible.push_back(routeP);
     }
@@ -81,13 +83,13 @@ void Dynamique::pathfinding(vec2<float> objectif)
         }
     }
     this->parcours.push_back(plusProche.r->getCoordDepart());
-    plusProche.addAccessible(accessible, this->max_speed);
+    plusProche.addAccessible(accessible, parcourue,this->max_speed);
     parcourue.push_back(plusProche);
     while (accessible.size() > 0)
     {
-        accessible.front().addAccessible(accessible, this->max_speed);
+        accessible.front().addAccessible(accessible, parcourue,this->max_speed);
         parcourue.push_back(accessible[0]);
-        accessible.erase(0);
+        accessible.erase(accessible.begin());
     }
 }
 
