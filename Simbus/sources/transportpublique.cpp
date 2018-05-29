@@ -1,17 +1,24 @@
 #include "../headers/transportPublique.hpp"
+<<<<<<< HEAD
 #include <math.h>
 Transportpublique::~Transportpublique(){
     for(auto a : arrets)
+=======
+
+Transportpublique::~Transportpublique()
+{
+    for (auto a : arrets)
+>>>>>>> f00783080cb03a89dabe231b82f7b417c3797ec3
         a->popLignes(this);
 }
 
 bool Transportpublique::popArrets(Arret *arret)
 {
-    for(unsigned x = 0;x<arrets.size();x++)
+    for (unsigned x = 0; x < arrets.size(); x++)
     {
-        if(arrets[x] == arret)
+        if (arrets[x] == arret)
         {
-            arrets.erase(arrets.begin()+x);
+            arrets.erase(arrets.begin() + x);
             return true;
         }
     }
@@ -22,7 +29,7 @@ void Transportpublique::pushArrets(Arret *transportpublique)
     arrets.push_back(transportpublique);
 }
 
-std::vector<Arret*> Transportpublique::getArrets()
+std::vector<Arret *> Transportpublique::getArrets()
 {
     return arrets;
 }
