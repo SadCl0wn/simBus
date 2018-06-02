@@ -15,7 +15,7 @@ class InterfaceQML : public QObject
 
     std::vector<Object> objects() const;
 
-    Q_INVOKABLE void arret();
+    Q_INVOKABLE void arret(std::vector<std::size_t>,int, int);
 
   private:
     std::vector<Object> _objects;

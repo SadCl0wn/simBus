@@ -3,23 +3,21 @@
 
 #include "batiment.hpp"
 #include "transportPublique.hpp"
-
+#include <vector>
 class Transportpublique;
 
 class  Arret:public Batiment{
     public:
-        Arret(std::vector<size_t> h,float x=0,float y=0):Batiment(x,y){};
+       Arret(std::vector<std::size_t> h,float x=0,float y=0):Batiment(x,y){}
         ~Arret();
         bool popLignes(Transportpublique *transportpublique);
         void pushLignes(Transportpublique *transportpublique);
         std::vector<Transportpublique *> getLignes();
-    private:
-        std::vector<size_t> horaires;
-        std::vector<Transportpublique *> lignes;
+
 
   private:
-    std::vector<size_t> horaires;
-    std::vector<Transportpublique *> lignes;
+   std::vector<std::size_t> horaires;
+   std::vector<Transportpublique *> lignes;
 };
 
 #endif
