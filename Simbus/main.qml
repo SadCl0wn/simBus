@@ -29,15 +29,6 @@ ApplicationWindow {
     InterfaceQml{
         id: interfaceQml
     }
-function resultatParse(pointArrets) {
-    var keys = Object.keys(pointArrets)
-    for(var i=0 ; i<keys.length ; i++) {
-        var point = pointArrets[keys[i]]
-        var coord = mapview.toCoordinate(Qt.point(point.x, point.y))
-        markermodel.addMarker(coord)
-        markermodel.setAddAction(true)
-    }
-}
 
 
 

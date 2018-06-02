@@ -14,6 +14,7 @@ class InterfaceQML : public QObject
     explicit InterfaceQML(QObject *parent = 0);
 
     Q_INVOKABLE void addArret(int x, int y);
+    Q_INVOKABLE std::vector<Object> getArrets();
 
   private:
     std::vector<Object> _arrets;

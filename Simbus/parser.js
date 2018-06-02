@@ -1,3 +1,16 @@
+function resultatParse(pointArrets) {
+    var keys = Object.keys(pointArrets);
+    for (var i = 0; i < keys.length; i++) {
+        var point = pointArrets[keys[i]];
+        // @ts-ignore
+        var coord = mapview.toCoordinate(Qt.point(point.x, point.y));
+        // @ts-ignore
+        markermodel.addMarker(coord);
+        // @ts-ignore
+        markermodel.setAddAction(true);
+    }
+}
+
 function parseXML(data) {
     var res = {
         elem: 'root',
@@ -69,8 +82,8 @@ function instantiateAll(data) {
                 }
             }
         } else if (data.children[i].elem === 'relation') {
-            let arrets = [];
-            let isBus = false;
+            var arrets = [];
+            var isBus = false;
             for (var j = 0; j < data.children[i].children.length; j++) {
                 if (
                     data.children[i].children[j].elem === 'member' &&
@@ -98,11 +111,15 @@ function instantiateAll(data) {
                     isBus = true;
                 }
             }
-            if(isBus){
+            if (isBus) {
                 obj.arrets.push(arrets);
             }
         }
-        for (var i = 0; i < obj.arrets.length; i++) {}
+        resultatParse(obj.arrets);
+        for (var i = 0; i < obj.arrets.length; i++) {
+            // @ts-ignore
+            interfaceQml.arret(obj.arrets.x, obj.arrets.y);
+        }
     }
 }
 
@@ -110,9 +127,7 @@ function parse(longHG, latHG, longBD, latBD) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState === xhr.DONE) {
-            // @ts-ignore
-            interfaceQml.arret(0,1);
-            // instantiateAll(parseXML(xhr.responseText));
+            instantiateAll(parseXML(xhr.responseText));
         }
     };
     //var url =
