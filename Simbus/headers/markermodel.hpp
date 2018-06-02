@@ -48,6 +48,15 @@ public:
 
 
     }
+    Q_INVOKABLE void removeMarker(const QGeoCoordinate &coordinate) {
+            int position = m_coordinates.indexOf(coordinate);
+            if (allowMarker && position > -1) {
+                beginInsertRows(QModelIndex(), position, 1);
+                m_coordinates.removeOne(coordinate);
+                endRemoveRows();
+            }
+            setAddAction(false);
+        }
 
 
 private:

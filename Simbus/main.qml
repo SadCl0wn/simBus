@@ -29,6 +29,7 @@ ApplicationWindow {
     InterfaceQml{
         id: interfaceQml
     }
+    property string stateAction: ""
 
 
 
@@ -252,8 +253,10 @@ ApplicationWindow {
                 text: qsTr("ajouter arret")
                 font.pointSize: 14
                 onClicked: {
-                    //param.ajoutArret("55,66");
-                    markermodel2.setAddAction(true)
+
+                    markermodel.setAddAction(true)
+                    stateAction = "AJOUT"
+
                 }
             }
 
@@ -280,7 +283,7 @@ ApplicationWindow {
                 font.pointSize: 14
                 onClicked: {
 
-
+                        stateAction = "SUPPR"
                 }
             }
 
@@ -404,10 +407,7 @@ ApplicationWindow {
                     model:markermodel
                     delegate: mapcomponent
                 }
-                MapItemView{
-                    model:markermodel2
-                    delegate: mapcomponent2
-                }
+
             }
 
             Component {
@@ -425,20 +425,7 @@ ApplicationWindow {
                 }
             }
 
-            Component {
-                id: mapcomponent2
-                MapQuickItem {
-                    id: marker2
-                    anchorPoint.x: imagemarker2.width/4
-                    anchorPoint.y: imagemarker2.height
-                    coordinate: position
 
-                    sourceItem: Image {
-                        id: imagemarker2
-                        source: "http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_green.png"
-                    }
-                }
-            }
 
             MouseArea {
                 anchors.leftMargin: 8
@@ -446,14 +433,15 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 onPressAndHold:  {
-                    var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
+                                    var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
 
-                    markermodel2.addMarker(coordinate)
-                   // param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
-
-                    //param.supprimerArret(coordinate.latitude+ ";" + coordinate.longitude)
-
-                }
+                                    if(stateAction === "AJOUT") {
+                                        markermodel.addMarker(coordinate)
+                                        param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
+                                    } else if(stateAction === "SUPPR") {
+                                        param.supprimerArret(coordinate.latitude+ ";" + coordinate.longitude)
+                                    }
+                                }
 
                 onWheel: { var coordinateTopLeft = mapview.toCoordinate(Qt.point(map.x, map.y))
                     var coordinateBottomRight = mapview.toCoordinate(Qt.point(mapview.x+mapview.width, mapview.y+mapview.height))

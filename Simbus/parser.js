@@ -1,14 +1,21 @@
+
 function resultatParse(pointArrets) {
-    var keys = Object.keys(pointArrets);
-    for (var i = 0; i < keys.length; i++) {
-        var point = pointArrets[keys[i]];
-        // @ts-ignore
-        var coord = mapview.toCoordinate(Qt.point(point.x, point.y));
-        // @ts-ignore
-        markermodel.addMarker(coord);
-        // @ts-ignore
-        markermodel.setAddAction(true);
-    }
+    // Chaque arret contient un x (latitude) et un y (longitude)
+    if(pointArrets.length > 0) {
+        markermodel.removeMarkers()
+        param.supprimerTousLesArrets()
+        // Supprimer tous les arrets dans interfaceQML
+        for(var i=0 ; i<pointArrets.length ; i++) {
+            var point = pointArrets[i]
+            // Affichage de l'arret sur la carte
+            markermodel.setAddAction(true)
+            markermodel.addMarker(point.x, point.y)
+            // Ajout de l'arret dans le fichier de parametres
+            param.ajoutArret(point.x + ";" + point.y)
+            // Ajout de l'arretpour simulation
+            interfaceQml.addArret(point.x, point.y)
+        }
+     }
 }
 
 function parseXML(data) {
@@ -142,7 +149,7 @@ function parse(longHG, latHG, longBD, latBD) {
         ',' +
         latHG +
         '&layers=T';
-    // console.log(url);
+    console.log(url);
     xhr.open('GET', url, true);
     xhr.send();
 }
