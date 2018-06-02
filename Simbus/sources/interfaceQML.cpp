@@ -1,6 +1,6 @@
 #include "../headers/interfaceQML.hpp"
 #include <QtDebug>
-
+#include <vector>
 InterfaceQML::InterfaceQML(QObject *parent) : QObject(parent)
 {
 }

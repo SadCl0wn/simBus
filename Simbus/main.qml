@@ -6,9 +6,7 @@ import QtQuick.Window 2.0
 import QtLocation 5.6
 import QtPositioning 5.6
 import QtLocation 5.3
-
 import InterfaceQml 1.0
-
 import "parser.js" as Parser
 
 
@@ -17,6 +15,7 @@ ApplicationWindow {
     visible: true
     height:416
     width:330
+
     Parametres{
         id:param
         latitudeBD:""
@@ -27,27 +26,27 @@ ApplicationWindow {
         minute:0
 
     }
-
     InterfaceQml{
         id: interfaceQml
     }
-
-    function resultatParse(pointArrets) {
-        var keys = Object.keys(pointArrets)
-        for(var i=0 ; i<keys.length ; i++) {
-            var point = pointArrets[keys[i]]
-            var coord = mapview.toCoordinate(Qt.point(point.x, point.y))
-            markermodel.addMarker(coord)
-            markermodel.setAddAction(true)
-        }
+function resultatParse(pointArrets) {
+    var keys = Object.keys(pointArrets)
+    for(var i=0 ; i<keys.length ; i++) {
+        var point = pointArrets[keys[i]]
+        var coord = mapview.toCoordinate(Qt.point(point.x, point.y))
+        markermodel.addMarker(coord)
+        markermodel.setAddAction(true)
     }
+}
+
+
 
     color: "#00000000"
 
     Image {
         id: image
-        x: 0
-        y: 0
+        x: -482
+        y: -78
         width: 330
         height: 416
         visible: true
@@ -56,31 +55,31 @@ ApplicationWindow {
 
     Page {
         id: base
-        x: 15
+        x: 0
         y: 0
-        width: 1876
-        height: 1052
-        visible: false
+        width: 1436
+        height: 850
+        visible:true
         title: "simBus"
 
         Timer {
-            interval: 1; running: true
+            interval: 5000; running: true
             onTriggered: {
                 image.visible=false
-                window.x=0
-                window.y=30
+                window.x=200
+                window.y=100
                 base.visible=true
-                window.width=1920
-                window.height=1080
+                window.width=1436
+                window.height=850
             }
         }
 
         Rectangle {
             id: simulation
-            x: 1517
-            y: 300
-            width: 391
-            height: 745
+            x: 1045
+            y: 319
+            width: 429
+            height: 531
             color: "#ffffff"
             border.color: "#000000"
             border.width: 4
@@ -89,9 +88,9 @@ ApplicationWindow {
             Rectangle {
                 id: repartition
                 x: 0
-                y: 395
-                width: 391
-                height: 357
+                y: 319
+                width: 429
+                height: 212
                 color: "#ffffff"
                 border.width: 4
                 border.color: "#000000"
@@ -111,8 +110,8 @@ ApplicationWindow {
 
             Text {
                 id: resimulation
-                x: 35
-                y: 104
+                x: 29
+                y: 34
                 width: 220
                 height: 42
                 text: qsTr("Résultats de la simulation:")
@@ -125,7 +124,7 @@ ApplicationWindow {
             Text {
                 id: tempsmoyen
                 x: 29
-                y: 216
+                y: 112
                 width: 96
                 height: 22
                 text: qsTr("Temps moyen de trajet")
@@ -134,10 +133,10 @@ ApplicationWindow {
 
             Text {
                 id: ecarttype
-                x: 35
-                y: 297
+                x: 29
+                y: 214
                 width: 96
-                height: 43
+                height: 22
                 text: qsTr("Ecart-type")
                 font.pixelSize: 12
             }
@@ -145,18 +144,18 @@ ApplicationWindow {
 
         Rectangle {
             id: rectangle
-            x: 1517
-            y: 190
-            width: 391
-            height: 114
+            x: 1045
+            y: 192
+            width: 429
+            height: 132
             color: "#ffffff"
             border.width: 4
             border.color: "#000000"
 
             Button {
                 id: simuler
-                x: 134
-                y: 37
+                x: 165
+                y: 46
                 text: qsTr("Simuler")
                 font.pointSize: 14
                 onClicked: {
@@ -167,9 +166,9 @@ ApplicationWindow {
 
         Rectangle {
             id: parametres
-            x: -15
+            x: 0
             y: 0
-            width: 1923
+            width: 1474
             height: 194
             color: "#ffffff"
             visible: true
@@ -178,8 +177,8 @@ ApplicationWindow {
 
             Button {
                 id: valider
-                x: 1340
-                y: 41
+                x: 1261
+                y: 43
                 width: 128
                 height: 40
                 onClicked: {
@@ -289,7 +288,8 @@ ApplicationWindow {
                 text: qsTr("supprimer arret")
                 font.pointSize: 14
                 onClicked: {
-                    markermodel2.setDelete(true)
+
+
                 }
             }
 
@@ -390,8 +390,8 @@ ApplicationWindow {
             id: map
             x: 0
             y: 200
-            width: 1511
-            height: 852
+            width: 1039
+            height: 641
             color: "#ffffff"
 
             Plugin {
@@ -402,9 +402,9 @@ ApplicationWindow {
             Map {
                 id:mapview
                 anchors.rightMargin: -5
-                anchors.bottomMargin: -4
+                anchors.bottomMargin: 0
                 anchors.topMargin: -6
-                anchors.leftMargin: -17
+                anchors.leftMargin: 0
                 anchors.fill: parent
                 plugin: mapPlugin
                 center: QtPositioning.coordinate( 48.390394,-4.486076) // brest
@@ -450,12 +450,17 @@ ApplicationWindow {
             }
 
             MouseArea {
+                anchors.leftMargin: 8
+                anchors.bottomMargin: 8
                 anchors.fill: parent
 
                 onPressAndHold:  {
                     var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
+
                     markermodel2.addMarker(coordinate)
-                    param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
+                   // param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
+
+                    //param.supprimerArret(coordinate.latitude+ ";" + coordinate.longitude)
 
                 }
 
