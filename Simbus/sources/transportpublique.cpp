@@ -76,8 +76,20 @@ void Transportpublique::descendre(Arret *a)
         std::vector<Batiment *> o = p->getObjectifs();
         if (o[0] == a)
         {
-            popPersonnes(p);
-            a->pushPersonnes(p);
+            popPersonne(p);
+            a->pushPersonne(p);
         }
     }
+}
+
+bool Transportpublique::popPersonne(Personne* personne){
+    for (unsigned x = 0; x < personnes.size(); x++)
+    {
+        if (personnes[x] == personne)
+        {
+            personnes.erase(personnes.begin() + x);
+            return true;
+        }
+    }
+    return false;
 }

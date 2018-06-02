@@ -4,11 +4,8 @@
 InterfaceQML::InterfaceQML(QObject *parent) : QObject(parent)
 {
 }
-std::vector<Object> InterfaceQML::objects() const
+
+void InterfaceQML::addArret(int x, int y)
 {
-    return _objects;
-}
-void InterfaceQML::arret()
-{
-    _objects.emplace_back(Arret(std::vector<size_t>(), 0, 0));
+    _arrets.emplace_back(Arret(std::vector<size_t>(), x, y));
 }

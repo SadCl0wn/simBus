@@ -14,15 +14,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += sources/main.cpp\
            sources/arret.cpp\
-           sources/batiment.cpp\
-           sources/dynamique.cpp\
-           sources/interfaceQML.cpp\
+           sources/route.cpp\
            sources/object.cpp\
            sources/personne.cpp\
-           sources/route.cpp\
+           sources/batiment.cpp\
+           sources/dynamique.cpp\
            sources/simulateur.cpp\
-           sources/transportpublique.cpp \
            sources/parametres.cpp\
+           sources/interfaceQML.cpp\
+           sources/transportpublique.cpp \
 
 RESOURCES += qml.qrc
 
@@ -38,14 +38,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += headers/arret.hpp\
-           headers/batiment.hpp\
-           headers/dynamique.hpp\
-           headers/interfaceQML.hpp\
+           headers/route.hpp\
            headers/object.hpp\
            headers/personne.hpp\
-           headers/route.hpp\
+           headers/batiment.hpp\
+           headers/dynamique.hpp\
            headers/simulateur.hpp\
-           headers/transportpublique.hpp \
+           headers/parametres.hpp \
            headers/interfaceQML.hpp\
-    headers/parametres.hpp \
-    headers/markermodel.hpp
+           headers/markermodel.hpp \
+           headers/transportpublique.hpp \

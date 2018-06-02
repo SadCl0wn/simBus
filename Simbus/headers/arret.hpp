@@ -16,10 +16,6 @@ class  Arret:public Batiment{
     private:
         std::vector<size_t> horaires;
         std::vector<Transportpublique *> lignes;
-
-  private:
-    std::vector<size_t> horaires;
-    std::vector<Transportpublique *> lignes;
 };
 
 #endif

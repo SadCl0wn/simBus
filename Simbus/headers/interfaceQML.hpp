@@ -13,12 +13,11 @@ class InterfaceQML : public QObject
   public:
     explicit InterfaceQML(QObject *parent = 0);
 
-    std::vector<Object> objects() const;
-
-    Q_INVOKABLE void arret();
+    Q_INVOKABLE void addArret(int x, int y);
 
   private:
-    std::vector<Object> _objects;
+    std::vector<Object> _arrets;
+    std::vector<Object> _routes;
 };
 
 #endif // INTERFACE_QML

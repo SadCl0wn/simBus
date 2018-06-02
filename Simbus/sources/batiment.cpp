@@ -23,7 +23,7 @@ bool Batiment::popPersonne(Personne *personne)
     }
     return false;
 }
-void Batiment::pushPersonnes(Personne *personne)
+void Batiment::pushPersonne(Personne *personne)
 {
     std::vector<Personne *> n=this->getPersonnes();
     if (n.size() < this->getnbPersonneMax())

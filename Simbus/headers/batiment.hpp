@@ -18,7 +18,7 @@ class Batiment:public Object{
         void addPersonne(Personne* Personne);
         vec2<unsigned> getStats();
         bool popPersonne(Personne *personne);
-        void pushPersonnes(Personne *personne);
+        void pushPersonne(Personne *personne);
         std::vector<Personne *> getPersonnes();
         unsigned getnbPersonneMax(); 
     private:
