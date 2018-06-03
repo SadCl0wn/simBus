@@ -37,8 +37,8 @@ ApplicationWindow {
 
     Image {
         id: image
-        x: -482
-        y: -78
+        x: 0
+        y: 0
         width: 330
         height: 416
         visible: true
@@ -51,7 +51,7 @@ ApplicationWindow {
         y: 0
         width: 1436
         height: 850
-        visible:true
+        visible:false
         title: "simBus"
 
         Timer {
@@ -174,7 +174,7 @@ ApplicationWindow {
                 width: 128
                 height: 40
                 onClicked: {
-                    param.longitudeHG=longitudehg.text
+                    param.longitudeHG=longitudehg.text   // //appel set de longitudeHG pour que ça prenne la longitudehg souhaitéee
                     param.latitudeHG=latitudehg.text
                     param.longitudeBD=longitudebd.text
                     param.latitudeBD=latitudebd.text
@@ -254,8 +254,8 @@ ApplicationWindow {
                 font.pointSize: 14
                 onClicked: {
 
-                    markermodel.setAddAction(true)
-                    stateAction = "AJOUT"
+                    markermodel.setAddAction(true) // autorise action sur marker
+                    stateAction = "AJOUT" //indication etat bouton par appui sur un des deux boutons
 
                 }
             }
@@ -269,7 +269,7 @@ ApplicationWindow {
                 font.pointSize: 14
 
                 onClicked: {
-                    Parser.parse(longitudehg.text,latitudehg.text,longitudebd.text,latitudebd.text)
+                    Parser.parse(longitudehg.text,latitudehg.text,longitudebd.text,latitudebd.text)  //envoi les données au parser
                 }
             }
 
@@ -283,7 +283,7 @@ ApplicationWindow {
                 font.pointSize: 14
                 onClicked: {
 
-                        stateAction = "SUPPR"
+                        stateAction = "SUPPR" //appui sur suppr arret, changement etat variable state action
                 }
             }
 
@@ -394,7 +394,7 @@ ApplicationWindow {
             }
 
             Map {
-                id:mapview
+                id:mapview //charger carte avec map plugin(utilisation openstreet map)
                 anchors.rightMargin: -5
                 anchors.bottomMargin: 0
                 anchors.topMargin: -6
@@ -403,14 +403,14 @@ ApplicationWindow {
                 plugin: mapPlugin
                 center: QtPositioning.coordinate( 48.390394,-4.486076) // brest
                 zoomLevel: 14
-                MapItemView{
+                MapItemView{   // pour chaque element de liste markermodel on créée un map item view qui va afficher chaque element via mapcomponenent
                     model:markermodel
                     delegate: mapcomponent
                 }
 
             }
 
-            Component {
+            Component {  // dectection chose à afficher
                 id: mapcomponent
                 MapQuickItem {
                     id: marker
@@ -427,29 +427,31 @@ ApplicationWindow {
 
 
 
-            MouseArea {
+            MouseArea { //gerer evenement de la souris
                 anchors.leftMargin: 8
                 anchors.bottomMargin: 8
                 anchors.fill: parent
 
                 onPressAndHold:  {
-                                    var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))
+                                    var coordinate = mapview.toCoordinate(Qt.point(mouse.x,mouse.y))  // creation variable qui contient les coordonnees de la où on a clické
 
                                     if(stateAction === "AJOUT") {
-                                        markermodel.addMarker(coordinate)
-                                        param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)
+                                        markermodel.addMarker(coordinate) // ajout marker dans la liste avec ses coordonnees
+                                        param.ajoutArret(coordinate.latitude+ ";" + coordinate.longitude)   //ajout coordonnées dans fichier texte
+                                        interfaceQml.addArret(coordinate.latitude, coordinate.longitude) //ajout pour afficher arret
                                     } else if(stateAction === "SUPPR") {
-                                        param.supprimerArret(coordinate.latitude+ ";" + coordinate.longitude)
+                                        markermodel.removeMarker(coordinate) // supprimer un arret
+                                        param.supprimerArret(coordinate.latitude+ ";" + coordinate.longitude)  //supprimer coordonnées dans fichier texte
                                     }
                                 }
 
-                onWheel: { var coordinateTopLeft = mapview.toCoordinate(Qt.point(map.x, map.y))
+                onWheel: { var coordinateTopLeft = mapview.toCoordinate(Qt.point(map.x, map.y))  //sur scroll souris : on créé 2 variables qui vont recupérer le coordonnées de la map item view
                     var coordinateBottomRight = mapview.toCoordinate(Qt.point(mapview.x+mapview.width, mapview.y+mapview.height))
-                    longitudehg.text=coordinateTopLeft.longitude
+                    longitudehg.text=coordinateTopLeft.longitude  // on ecrit dans l interface les informations récupérer avec les coordinate...
                     latitudehg.text=coordinateTopLeft.latitude
                     longitudebd.text=coordinateBottomRight.longitude
                     latitudebd.text=coordinateBottomRight.latitude
-                    wheel.accepted=false
+                    wheel.accepted=false // voir  zoom carte
                 }
             }
         }

@@ -6,7 +6,7 @@
 class Parametres:public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString longitudeHG READ recuplongitudeHG WRITE setlongitudeHG)
+    Q_PROPERTY(QString longitudeHG READ recuplongitudeHG WRITE setlongitudeHG)  //permet de modifier diirectement proprieté  de longitude en haut à gauche
     Q_PROPERTY(QString latitudeHG READ recuplatitudeHG WRITE setlatitudeHG)
     Q_PROPERTY(QString longitudeBD READ recuplongitudeBD WRITE setlongitudeBD)
     Q_PROPERTY(QString latitudeBD READ recuplatitudeBD WRITE setlatitudeBD)
@@ -34,7 +34,7 @@ public:
     void setheure(int h);
     void setminute(int min);
 
-    Q_INVOKABLE void ajoutArret(const QString &new_pos); //dialogue bouton pour ajouter arret
+    Q_INVOKABLE void ajoutArret(const QString &new_pos); //dialogue bouton pour ajouter arret. Q_Invokable  permet l'appel d'une méthode d'un objet depuis le QML
 
     Q_INVOKABLE void supprimerArret(QString pos);
     Q_INVOKABLE void simuler();
@@ -50,7 +50,7 @@ private:
     int heure;
     int minute;
     QString textvalue(int value);
-    QStringList coordonnees;
+    QStringList coordonnees; //liste pour fichier texte
     bool isValidParam;
 
 

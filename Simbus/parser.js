@@ -1,10 +1,11 @@
 function resultatParse(pointArrets) {
     // Chaque arret contient un x (latitude) et un y (longitude)
+    console.log(pointArrets)
     if (pointArrets.length > 0) {
         // @ts-ignore
-        markermodel.removeAllMarkers()
+        markermodel.removeAllMarkers() // mise à jour affichage quand on scroll
         // @ts-ignore
-        param.supprimerTousLesArrets();
+       // param.supprimerTousLesArrets();
         // Supprimer tous les arrets dans interfaceQML
         for (var i = 0; i < pointArrets.length; i++) {
             var point = pointArrets[i];
@@ -13,7 +14,7 @@ function resultatParse(pointArrets) {
             markermodel.setAddAction(true);
             // @ts-ignore
             markermodel.addMarker(point.x, point.y);
-            // Ajout de l'arret dans le fichier de parametres
+            // Ajout de l'arret dans le fichier des parametres
             // @ts-ignore
             param.ajoutArret(point.x + ';' + point.y);
         }

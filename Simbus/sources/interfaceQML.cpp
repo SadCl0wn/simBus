@@ -18,7 +18,7 @@ std::vector<Object> InterfaceQML::getArrets()
 
 void InterfaceQML::addRoute(float x1, float x2, float y1, float y2, float speed)
 {
-    // _routes.emplace_back(Route(speed, x1, x2, y1, y2));
+   // _routes.emplace_back(Route(speed, x1, x2, y1, y2));
 }
 
 std::vector<Object> InterfaceQML::getRoutes()
