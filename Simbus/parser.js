@@ -1,27 +1,23 @@
-
 function resultatParse(pointArrets) {
     // Chaque arret contient un x (latitude) et un y (longitude)
-    if(pointArrets.length > 0) {
+    if (pointArrets.length > 0) {
         // @ts-ignore
-        markermodel.removeMarkers()
+        markermodel.removeMarker();
         // @ts-ignore
-        param.supprimerTousLesArrets()
+        param.supprimerTousLesArrets();
         // Supprimer tous les arrets dans interfaceQML
-        for(var i=0 ; i<pointArrets.length ; i++) {
-            var point = pointArrets[i]
+        for (var i = 0; i < pointArrets.length; i++) {
+            var point = pointArrets[i];
             // Affichage de l'arret sur la carte
             // @ts-ignore
-            markermodel.setAddAction(true)
+            markermodel.setAddAction(true);
             // @ts-ignore
-            markermodel.addMarker(point.x, point.y)
+            markermodel.addMarker(point.x, point.y);
             // Ajout de l'arret dans le fichier de parametres
             // @ts-ignore
-            param.ajoutArret(point.x + ";" + point.y)
-            // Ajout de l'arretpour simulation
-            // interfaceQml.addArret(point.x, point.y)
-            //deja fait dans la fonction INSTANCIATE ALL
+            param.ajoutArret(point.x + ';' + point.y);
         }
-     }
+    }
 }
 
 function parseXML(data) {
@@ -129,11 +125,15 @@ function instantiateAll(data) {
             }
         }
     }
-    resultatParse(obj.arrets);
     for (var i = 0; i < obj.arrets.length; i++) {
         // @ts-ignore
-        interfaceQml.arret(obj.arrets.x, obj.arrets.y);
+        interfaceQml.addArret(obj.routes.x, obj.routes.y);
     }
+    for (var i = 0; i < obj.routes.length; i++) {
+        // @ts-ignore
+        interfaceQml.addRoute(obj.routes.x, obj.routes.y);
+    }
+    resultatParse(obj.arrets);
 }
 
 function parse(longHG, latHG, longBD, latBD) {

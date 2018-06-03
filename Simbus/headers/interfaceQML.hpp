@@ -15,6 +15,9 @@ class InterfaceQML : public QObject
 
     Q_INVOKABLE void addArret(int x, int y);
     Q_INVOKABLE std::vector<Object> getArrets();
+    
+    Q_INVOKABLE void addRoute(int x, int y);
+    Q_INVOKABLE std::vector<Object> getRoutes();
 
   private:
     std::vector<Object> _arrets;
