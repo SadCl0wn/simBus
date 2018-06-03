@@ -2,18 +2,24 @@
 function resultatParse(pointArrets) {
     // Chaque arret contient un x (latitude) et un y (longitude)
     if(pointArrets.length > 0) {
+        // @ts-ignore
         markermodel.removeMarkers()
+        // @ts-ignore
         param.supprimerTousLesArrets()
         // Supprimer tous les arrets dans interfaceQML
         for(var i=0 ; i<pointArrets.length ; i++) {
             var point = pointArrets[i]
             // Affichage de l'arret sur la carte
+            // @ts-ignore
             markermodel.setAddAction(true)
+            // @ts-ignore
             markermodel.addMarker(point.x, point.y)
             // Ajout de l'arret dans le fichier de parametres
+            // @ts-ignore
             param.ajoutArret(point.x + ";" + point.y)
             // Ajout de l'arretpour simulation
-            interfaceQml.addArret(point.x, point.y)
+            // interfaceQml.addArret(point.x, point.y)
+            //deja fait dans la fonction INSTANCIATE ALL
         }
      }
 }
@@ -85,7 +91,7 @@ function instantiateAll(data) {
                     data.children[i].children[j].elem === 'tag' &&
                     data.children[i].children[j].attributes.k === 'highway'
                 ) {
-                    obj.push(data.children[i]);
+                    obj.routes.push(data.children[i]);
                 }
             }
         } else if (data.children[i].elem === 'relation') {
@@ -122,11 +128,11 @@ function instantiateAll(data) {
                 obj.arrets.push(arrets);
             }
         }
-        resultatParse(obj.arrets);
-        for (var i = 0; i < obj.arrets.length; i++) {
-            // @ts-ignore
-            interfaceQml.arret(obj.arrets.x, obj.arrets.y);
-        }
+    }
+    resultatParse(obj.arrets);
+    for (var i = 0; i < obj.arrets.length; i++) {
+        // @ts-ignore
+        interfaceQml.arret(obj.arrets.x, obj.arrets.y);
     }
 }
 
