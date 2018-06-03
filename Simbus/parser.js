@@ -82,7 +82,10 @@ function instantiateAll(data) {
                 x: data.children[i].attributes.lat,
                 y: data.children[i].attributes.lon
             };
-        } else if (data.children[i].elem === 'way') {
+        }
+    }
+    for (var i = 0; i < data.children.length; i++) {
+        if (data.children[i].elem === 'way') {
             for (var j = 0; j < data.children[i].children.length; j++) {
                 if (
                     data.children[i].children[j].elem === 'tag' &&
@@ -104,14 +107,12 @@ function instantiateAll(data) {
                             points[
                                 'r' +
                                     data.children[i].children[j].attributes.ref
-                                        .x
-                            ],
+                            ].x,
                         y:
                             points[
                                 'r' +
                                     data.children[i].children[j].attributes.ref
-                                        .y
-                            ]
+                            ].y
                     });
                 } else if (
                     data.children[i].children[j].elem === 'tag' &&
@@ -128,15 +129,18 @@ function instantiateAll(data) {
     }
     for (var i = 0; i < obj.arrets.length; i++) {
         // @ts-ignore
-        interfaceQml.addArret(obj.routes.x, obj.routes.y);
+        interfaceQml.addArret(
+            parseFloat(obj.routes.x),
+            parseFloat(obj.routes.y)
+        );
     }
     for (var i = 0; i < obj.routes.length; i++) {
         for (var j = 0; j < obj.routes[i].children.length; j++) {
             if (obj.routes[i].children[j].elem === 'nd' && j !== 0) {
                 // @ts-ignore
                 interfaceQml.addRoute(
-                    obj.routes[i].children[j-1].attributes.lat,
-                    obj.routes[i].children[j-1].attributes.lon,
+                    obj.routes[i].children[j - 1].attributes.lat,
+                    obj.routes[i].children[j - 1].attributes.lon,
                     obj.routes[i].children[j].attributes.lat,
                     obj.routes[i].children[j].attributes.lon,
                     10

@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>qtquickcontrols2.conf</file>
-        <file>interfacesimbus.png</file>
-        <file>main.qml</file>
-        <file>marqueur vert.png</file>
-    </qresource>
-</RCC>
