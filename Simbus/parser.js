@@ -2,7 +2,7 @@ function resultatParse(pointArrets) {
     // Chaque arret contient un x (latitude) et un y (longitude)
     if (pointArrets.length > 0) {
         // @ts-ignore
-        markermodel.removeMarker();
+        markermodel.removeAllMarkers()
         // @ts-ignore
         param.supprimerTousLesArrets();
         // Supprimer tous les arrets dans interfaceQML
