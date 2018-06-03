@@ -1,11 +1,11 @@
 function resultatParse(pointArrets) {
     // Chaque arret contient un x (latitude) et un y (longitude)
-    console.log(pointArrets)
+    console.log(pointArrets);
     if (pointArrets.length > 0) {
         // @ts-ignore
-        markermodel.removeAllMarkers() // mise à jour affichage quand on scroll
+        markermodel.removeAllMarkers(); // mise à jour affichage quand on scroll
         // @ts-ignore
-       // param.supprimerTousLesArrets();
+        // param.supprimerTousLesArrets();
         // Supprimer tous les arrets dans interfaceQML
         for (var i = 0; i < pointArrets.length; i++) {
             var point = pointArrets[i];
@@ -131,8 +131,18 @@ function instantiateAll(data) {
         interfaceQml.addArret(obj.routes.x, obj.routes.y);
     }
     for (var i = 0; i < obj.routes.length; i++) {
-        // @ts-ignore
-        interfaceQml.addRoute(obj.routes.x, obj.routes.y);
+        for (var j = 0; j < obj.routes[i].children.length; j++) {
+            if (obj.routes[i].children[j].elem === 'nd' && j !== 0) {
+                // @ts-ignore
+                interfaceQml.addRoute(
+                    obj.routes[i].children[j-1].attributes.lat,
+                    obj.routes[i].children[j-1].attributes.lon,
+                    obj.routes[i].children[j].attributes.lat,
+                    obj.routes[i].children[j].attributes.lon,
+                    10
+                );
+            }
+        }
     }
     resultatParse(obj.arrets);
 }
