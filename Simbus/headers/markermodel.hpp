@@ -51,13 +51,18 @@ public:
     Q_INVOKABLE void removeMarker(const QGeoCoordinate &coordinate) {
             int position = m_coordinates.indexOf(coordinate);
             if (allowMarker && position > -1) {
-                beginInsertRows(QModelIndex(), position, 1);
-                m_coordinates.removeOne(coordinate);
+                beginRemoveRows(QModelIndex(), position, 1);
+                m_coordinates.removeAll(coordinate);
                 endRemoveRows();
             }
             setAddAction(false);
         }
-
+    Q_INVOKABLE void removeAllMarkers()
+       {
+           beginResetModel();
+           m_coordinates.clear();
+           endResetModel();
+       }
 
 private:
     QList<QGeoCoordinate> m_coordinates;

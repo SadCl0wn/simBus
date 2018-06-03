@@ -124,3 +124,6 @@ QString Parametres::textvalue(int value){
      }
     //appel fonction simulation
  }
+ void Parametres::supprimerTousLesArrets() {
+     coordonnees.clear();
+ }

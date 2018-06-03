@@ -39,7 +39,7 @@ public:
     Q_INVOKABLE void supprimerArret(QString pos);
     Q_INVOKABLE void simuler();
 
-
+    Q_INVOKABLE void supprimerTousLesArrets() ;
 
     Q_INVOKABLE void save();
 private:
