@@ -77,3 +77,4 @@ Thumbs.db
 */.vscode/*
 *debug*
 *.user
+.vscode/c_cpp_properties.json
